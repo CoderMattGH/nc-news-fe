@@ -1,5 +1,83 @@
 .articles-section {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  margin: 10px 0;
   width: 100%;
   max-width: 800px;
+  font-size: 0.8rem;
+  
+  display: grid;
+  grid-template-columns: auto;
+
+  gap: 13px;
+}
+
+.article-card {
+  padding: 5px;
+  /* border: 1px solid salmon; */
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  height: 150px;
+}
+
+.article-card__img {
+  border-radius: 15px;
+  height: 100%;
+  width: 140px;
+  object-fit: cover;
+  grid-row: 1 / 4;
+  padding: 2px;
+}
+
+.article-card__title {
+  font-size: 1.0rem;
+  text-align: left;
+  padding: 1px 8px;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.article-card__desc-summary {
+  font-size: 0.75rem;
+  padding: 0px 2px 0px 8px;
+  text-align: left;
+  overflow: hidden;
+  align-content: center;
+}
+
+.article-card__footer {
+  /* border: 1px solid red; */
+  padding: 4px 6px;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.article-card__footer * {
+  /* border: 1px solid yellow; */
+}
+
+.article-card__votes {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.article-card__vote_btn {
+  height: 20px;
+}
+
+.article-card__vote_btn:hover {
+  opacity: 0.7;
+}
+
+.article-card__element--gray {
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 5px 19px;
+  background-color: rgb(233, 233, 233)
 }
