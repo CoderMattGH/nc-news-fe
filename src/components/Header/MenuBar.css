@@ -1,0 +1,12 @@
+.nav {
+  /* border: 1px solid green; */
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.nav__entry {
+  text-transform: uppercase;
+  padding: 0 10px;
+}

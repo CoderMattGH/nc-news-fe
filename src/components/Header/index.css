@@ -1,0 +1,25 @@
+.header {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto;
+  align-items: center;
+}
+
+.header * {
+  /* border: 1px solid green; */
+}
+
+.title {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title__logo {
+  height: 40px;
+}
+
+.title__img {
+  height: 40px;
+}
