@@ -9,3 +9,10 @@
   width: 100%;
   text-align: center;
 }
+
+.main-body {
+  border: 1px solid green;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
