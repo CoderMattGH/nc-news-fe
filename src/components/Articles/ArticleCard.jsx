@@ -9,8 +9,8 @@ function ArticleCard({article}) {
       <img className="article-card__img" src={article.article_img_url} />
       <h2 className="article-card__title">{article.title}</h2>
       <p className="article-card__desc-summary">
-        {(article.body_preview.length >= 380) ?
-            article.body_preview.slice(0, 380) + "..."
+        {(article.body_preview.length >= 410) ?
+            article.body_preview.slice(0, 410).trim() + "..."
           : 
             article.body_preview
         }
