@@ -50,12 +50,11 @@ function Articles() {
           <img className="article-card__img" src={article.article_img_url} />
           <h2 className="article-card__title">{article.title}</h2>
           <p className="article-card__desc-summary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor ante eu risus tempor, 
-            at efficitur lorem elementum. Nulla maximus dapibus est, sit amet eleifend justo lacinia
-            eu. 
-            Nunc auctor tellus a enim mollis, vitae facilisis risus pharetra. Vivamus ac mauris non 
-            felis lacinia varius id eu lectus. Praesent libero nibh, dapibus at faucibus nec, elementum 
-            vitae risus. Nunc a tempor tortor. Etiam ultricies sollicitudisd...   
+            {(article.body_preview.length >= 380) ?
+                article.body_preview.slice(0, 380) + "..."
+              : 
+                article.body_preview
+            }
           </p>
           <div className="article-card__footer">
             <p className="article-card__votes article-card__element--gray">

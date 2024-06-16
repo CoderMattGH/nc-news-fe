@@ -2,22 +2,22 @@
   /* border: 1px solid black; */
   margin: 10px 0;
   width: 100%;
-  max-width: 800px;
+  max-width: 840px;
   font-size: 0.81rem;
   
   display: grid;
   grid-template-columns: auto;
 
-  gap: 13px;
+  gap: 17px;
 }
 
 .article-card {
-  padding: 5px;
+  /* padding: 5px; */
   /* border: 1px solid salmon; */
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
-  height: 150px;
+  height: 160px;
 }
 
 .article-card__img {
@@ -32,7 +32,7 @@
 .article-card__title {
   font-size: 1.0rem;
   text-align: left;
-  padding: 1px 8px;
+  padding: 1px 10px;
 
   text-overflow: ellipsis;
   overflow: hidden;
@@ -41,10 +41,11 @@
 
 .article-card__desc-summary {
   font-size: 0.75rem;
-  padding: 0px 2px 0px 8px;
+  padding: 3px 2px 0px 10px;
   text-align: left;
   overflow: hidden;
-  align-content: center;
+  /* align-content: center; */
+  text-transform: capitalize;
 }
 
 .article-card__footer {
