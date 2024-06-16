@@ -1,3 +1,5 @@
+import './ArticleCard.css';
+
 import dateParsing from '../../util-functions/date-parsing';
 
 // TODO :Author
