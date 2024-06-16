@@ -2,11 +2,13 @@
   /* border: 1px solid red; */
   display: grid;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .loading-icon {
   /* border: 1px solid black; */
+  
+  height: 100px;
   animation-name: loading-animation;
   animation-duration: 1.4s;
   animation-direction: alternate-reverse;

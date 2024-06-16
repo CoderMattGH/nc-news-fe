@@ -1,24 +1,3 @@
-.articles-section {
-  /* border: 1px solid black; */
-  margin: 10px 0;
-  width: 100%;
-  max-width: 840px;
-  font-size: 0.81rem;
-  
-  display: grid;
-  grid-template-columns: auto;
-
-  gap: 17px;
-}
-
-.article-card {
-  /* padding: 5px; */
-  /* border: 1px solid salmon; */
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr auto;
-  height: 160px;
-}
 
 .article-card__img {
   border-radius: 15px;
@@ -89,10 +68,4 @@
   text-overflow: ellipsis;
   overflow: hidden;
   text-wrap: nowrap;
-}
-
-.no-articles-found {
-  font-weight: bold;
-  padding: 20px;
-  font-size: 1.0rem;
 }
