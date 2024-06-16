@@ -3,6 +3,7 @@ import {useState,useEffect, useRef} from 'react';
 import constants from '../../constants';
 import './index.css';
 
+import FilterBar from './FilterBar';
 import ArticleCard from './ArticleCard';
 import Loading from '../Loading';
 
@@ -132,11 +133,12 @@ function Articles() {
   }
 
   return (
-    <section className="articles-section">
-      {articlesBody}
+      <section className="articles-section">
+        <FilterBar />
+        {articlesBody}
 
-      {(isLoading ? <Loading /> : null)}
-    </section>    
+        {(isLoading ? <Loading /> : null)}
+      </section>    
   );
 }
 
