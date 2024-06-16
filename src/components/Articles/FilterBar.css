@@ -1,11 +1,12 @@
 .filter-bar {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   justify-content: start;
   gap: 20px;
 }
 
 .dropdown__btn {
+  text-transform: capitalize;
   font-size: 0.9rem;
   font-weight: bold;
   border-radius: 30px;
@@ -14,6 +15,10 @@
   position: relative;
   background-color: rgb(233, 233, 233);
   cursor: pointer;
+  
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
 }
 
 /* Mega next sibling selector */
@@ -40,8 +45,8 @@
 }
 
 .dropdown-menu__link {
+  text-transform: capitalize;
   border: 0;
-  /* font-size: 0.81rem; */
   background-color: rgb(233, 233, 233);
   font-weight: bold;
   color: black;
@@ -55,4 +60,10 @@
 .dropdown-menu__link:hover {
   background-color: rgb(255, 255, 255);
   text-decoration: underline;
+}
+
+.filter-bar__span {
+  padding-right: 7px;
+  font-size: 0.86rem;
+  color: rgb(85, 85, 85);
 }

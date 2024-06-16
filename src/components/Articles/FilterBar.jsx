@@ -1,24 +1,43 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './FilterBar.css';
 
 function FilterBar() {
+  const [categoryBtnState, setCategoryBtnState] = useState("All Categories");
+  const [sortBtnState, setSortBtnState] = useState("Date");
+  const [orderBtnState, setOrderBtnState] = useState("Descending");
+
   const handleCategoryClick = (event) => {
     console.log(event.target.name);
+
+    setCategoryBtnState(event.target.name);
   };
 
   const handleSortByClick = (event) => {
     console.log(event.target.name);
+
+    setSortBtnState(event.target.name);
   };
 
   const handleOrderClick = (event) => {
     console.log(event.target.name);
+
+    if (event.target.name === "asc")
+      setOrderBtnState("Ascending");
+    else
+      setOrderBtnState("Descending");
   };
 
   return (
     <div className="filter-bar">
       <div className="filter-bar__container">
-        <button className="dropdown__btn">All Categories</button>
+        <button className="dropdown__btn">
+          <span className="filter-bar__span">Category:</span>
+          <span className="filter-bar__btn-state">{categoryBtnState}</span>
+        </button>
         <div className="dropdown-menu">
+          <button name="all" className="dropdown-menu__link" onClick={handleCategoryClick}>
+            All
+          </button>          
           <button name="coding" className="dropdown-menu__link" onClick={handleCategoryClick}>
             Coding
           </button>
@@ -32,7 +51,10 @@ function FilterBar() {
       </div>
 
       <div className="filter-bar__container">
-        <button className="dropdown__btn">Date</button>
+        <button className="dropdown__btn">
+          <span className="filter-bar__span">Sort By:</span>
+          <span className="filter-bar__btn-state">{sortBtnState}</span>
+        </button>
         <div className="dropdown-menu">
           <button name="author" className="dropdown-menu__link" onClick={handleSortByClick}>
             Author
@@ -53,7 +75,10 @@ function FilterBar() {
       </div>  
 
       <div className="filter-bar__container">
-        <button className="dropdown__btn">Descending</button>
+        <button className="dropdown__btn">
+          <span className="filter-bar__span">Order:</span>
+          <span className="filter-bar__btn-state">{orderBtnState}</span>
+        </button>
         <div className="dropdown-menu">
           <button name="asc" className="dropdown-menu__link" onClick={handleOrderClick}>
             Ascending
@@ -62,7 +87,7 @@ function FilterBar() {
             Descending
           </button>
         </div>
-      </div>  
+      </div>        
     </div>
   );
 }
