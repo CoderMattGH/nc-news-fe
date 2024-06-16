@@ -5,13 +5,13 @@
 }
 
 #root {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 100%;
   text-align: center;
 }
 
 .main-body {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
