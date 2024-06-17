@@ -16,7 +16,7 @@ function Articles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Used to implement infinite scrolling
+  // Last ArticleCard ref (used to implement infinite scrolling)
   const lastCardRef = useRef(null);
 
   const pageRef = useRef(null);
@@ -33,9 +33,13 @@ function Articles() {
     setArticles([]);
 
     const topicParam = searchParams.get("topic");
-    console.log("TopicParam: ", topicParam);
+    const sortByParam = searchParams.get("sort_by");
+    const orderParam = searchParams.get("order");
 
-    fetchAppendArticles(pageRef.current, abortController.current, topicParam);
+    console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
+
+    fetchAppendArticles(pageRef.current, abortController.current, topicParam
+        , sortByParam, orderParam);
 
     return () => {
       abortController.current.abort();
@@ -57,7 +61,8 @@ function Articles() {
 
           if (hasMoreArticles && entry.isIntersecting && !isLoading) {
             pageRef.current = pageRef.current + 1;
-            fetchAppendArticles(pageRef.current, abortController.current, searchParams.get("topic"));
+            fetchAppendArticles(pageRef.current, abortController.current, searchParams.get("topic"),
+                searchParams.get("sort_by"), searchParams.get("order"));
           }
         });
       }, 
@@ -72,7 +77,7 @@ function Articles() {
     };
   }, [articles]);
 
-  const fetchAppendArticles = (page = 1, abortController, topic) => {
+  const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order) => {
     if (isLoading) {
       console.log("Already fetching articles!  Returning!");
 
@@ -90,7 +95,9 @@ function Articles() {
       signal: abortController.signal,
       params: {
         p: page,
-        topic: topic
+        topic: topic,
+        sort_by: sortBy,
+        order: order
       }
     };
 
