@@ -3,8 +3,7 @@ import './Loading.css';
 function Loading() {
   return (
     <section className="loading-section">
-      {/* <p>Loading...</p> */}
-      <img alt="Loading image" className="loading-icon" src="./images/loading_icon.svg"></img>
+      <img alt="Loading image" className="loading-icon" src="/images/loading_icon.svg"></img>
     </section>
   );
 }
