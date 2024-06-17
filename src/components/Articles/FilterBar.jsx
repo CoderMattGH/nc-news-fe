@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import './FilterBar.css';
 
 function FilterBar() {
-  const [categoryBtnState, setCategoryBtnState] = useState("All Categories");
+  const [categoryBtnState, setCategoryBtnState] = useState("All");
   const [sortBtnState, setSortBtnState] = useState("Date");
   const [orderBtnState, setOrderBtnState] = useState("Descending");
   
   const [categoryMenuVis, setCategoryMenuVis] = useState(false);
   const [sortMenuVis, setSortMenuVis] = useState(false);
   const [orderMenuVis, setOrderMenuVis] = useState(false);
+
+  let [searchParams, setSearchParams] = useSearchParams();
 
   // TODO: Test more extensively
   useEffect(() => {
@@ -23,7 +26,6 @@ function FilterBar() {
   const handleClickOutside = (event) => {
     console.log("Handling outside menu click!");
     const className = event.target.className;
-    console.log(className);
 
     const ignoreClasses = ["dropdown-menu__link", "dropdown-menu", "dropdown__btn", 
         "filter-bar__btn-state", "filter-bar__span"];
@@ -72,10 +74,23 @@ function FilterBar() {
   };
 
   const handleCategoryClick = (event) => {
-    console.log(event.target.name);
+    const topic = event.target.name;
+    console.log(topic);
 
-    setCategoryBtnState(event.target.name);
+    setCategoryBtnState(topic);
     toggleOffAllMenuVis();
+
+    if (topic === "all") {
+      // Remove topic from search params
+      setSearchParams((currSearchParams) => {
+        currSearchParams.delete("topic");
+
+        return currSearchParams;
+      });
+    }
+    else {
+      setSearchParams({'topic': topic});
+    }
   };
 
   const handleSortByClick = (event) => {
