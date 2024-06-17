@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {useState,useEffect, useRef} from 'react';
+import {useSearchParams} from 'react-router-dom';
+
 import constants from '../../constants';
+
 import './index.css';
 
 import FilterBar from './FilterBar';
 import ArticleCard from './ArticleCard';
 import Loading from '../Loading';
-import { useSearchParams } from 'react-router-dom';
 
 function Articles() {
   const RESULT_LIMIT = 10;

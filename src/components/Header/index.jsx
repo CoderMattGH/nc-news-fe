@@ -1,5 +1,6 @@
 import MenuBar from './MenuBar';
 import SearchBar from './SearchBar';
+
 import './index.css';
 
 function Header() {
