@@ -18,12 +18,19 @@
   white-space: nowrap;
 }
 
+.article-card__title:first-letter {
+  text-transform: capitalize;
+}
+
 .article-card__desc-summary {
   font-size: 0.75rem;
   padding: 3px 2px 0px 10px;
   text-align: left;
   overflow: hidden;
   /* align-content: center; */
+}
+
+.article-card__desc-summary:first-letter {
   text-transform: capitalize;
 }
 
