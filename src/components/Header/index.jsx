@@ -6,8 +6,8 @@ function Header() {
   return (
     <header className="header">
       <div className="title">
-        <img className="title__logo" src="./images/logo.svg" />
-        <img className="title__img" src="./images/title_main.svg" />
+        <img alt="Title Logo" className="title__logo" src="./images/logo.svg" />
+        <img alt="Title Image" className="title__img" src="./images/title_main.svg" />
       </div>
       <SearchBar />
       <MenuBar />
