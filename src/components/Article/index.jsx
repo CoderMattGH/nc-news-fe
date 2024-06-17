@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import {useState, useRef, useEffect} from 'react';
 
 import constants from '../../constants';
+import dateParser from '../../util-functions/date-parsing.js';
 
 import Loading from '../Loading';
 
@@ -12,7 +13,7 @@ function Article() {
   let {article_id: articleId} = useParams();
   console.log(articleId);
   
-  let [article, setArticle] = useState({});
+  let [article, setArticle] = useState(null);
   let [isLoading, setIsLoading] = useState(false);
 
   const abortController = useRef(null);
@@ -23,7 +24,7 @@ function Article() {
     console.log("Mounting Article component!");
     abortController.current = new AbortController();    
 
-    setArticle({});
+    setArticle(null);
 
     fetchPopulateArticle(articleId, abortController.current);
 
@@ -36,6 +37,7 @@ function Article() {
     console.log(`Fetching Article where article_id: ${articleId}`);
 
     currentReqCount.current++;
+    setIsLoading(true);
 
     const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
 
@@ -64,9 +66,51 @@ function Article() {
         });
   };
 
+  let articleBody;
+  if (!article) {
+    articleBody = (<p>No article found!</p>);
+  } else {
+    articleBody = (
+      <>
+        <h2 className="article-content__title">{article.title}</h2>
+        <div className="article-bar">
+          <p className=
+              "button__element--gray button__element--grid button__category">
+            <span className="button__element--inner-label">Category:</span>
+            <span>{article.topic}</span>
+          </p>
+          <p className="button__element--gray button__element--grid">
+            <span className="button__element--inner-label">Author:</span>
+            <span>{article.author}</span>
+          </p>
+          <p className="button__element--gray">
+            <span>{dateParser.convertUnixDate(article.created_at)}</span>
+          </p>
+          <p className="button__votes button__element--gray">
+            <img className="button__vote_btn" src='/images/buttons/upvote.svg' />
+            <span>{article.votes}</span>
+            <img className="button__vote_btn" src='/images/buttons/downvote.svg' />
+          </p>
+        </div>
+        <img className="article-content__img" src={article.article_img_url}></img>
+        <p className="article-content__body">{article.body}</p>
+        <section className="article-comments-section">
+          <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
+          <p>This article doesn't contain any comments.</p>
+        </section>
+      </>
+    );
+  }
+
   return (
     <section className="content-section">
-      <h1>TESTING</h1>
+      {isLoading ? 
+          <Loading />
+        :
+          <div className="article-content">
+            {articleBody}
+          </div>
+      }
     </section>
   );
 }
