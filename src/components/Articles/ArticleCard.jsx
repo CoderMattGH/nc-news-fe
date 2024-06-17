@@ -30,7 +30,7 @@ function ArticleCard({article}) {
         </p>
       </div>
     </>
-  )
+  );
 }
 
 export default ArticleCard;
