@@ -30,3 +30,33 @@
 
   gap: 17px;
 }
+
+.button__element--gray {
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 5px 19px;
+  background-color: rgb(233, 233, 233);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.button__category {
+  text-transform: capitalize;
+}
+
+.button__votes {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.button__vote_btn {
+  height: 20px;
+}
+
+.button__vote_btn:hover {
+  opacity: 0.7;
+}
