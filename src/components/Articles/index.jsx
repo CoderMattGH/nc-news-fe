@@ -24,7 +24,7 @@ function Articles() {
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On Mount
+  // On Mount and when searchParams change
   useEffect(() => {
     console.log("Mounting Articles component!");
     abortController.current = new AbortController();

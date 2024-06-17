@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './FilterBar.css';
 
@@ -13,7 +13,6 @@ function FilterBar() {
 
   let [searchParams, setSearchParams] = useSearchParams();
 
-  // TODO: Test more extensively
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);    
 
@@ -23,18 +22,19 @@ function FilterBar() {
   }, []);
 
   // Set state to search params
+  // TODO: Convert to lower case
+  // TODO: Check values exist
   useEffect(() => {
-    // TODO CHECK ALL THESE VALUES EXIST
-    // TODO: Convert to lower case
+    const categoryArr = ["all", "coding", "cooking", "football"];
     const topicParam = searchParams.get('topic');
-    if (topicParam !== null)
-      setCategoryBtnState(searchParams.get('topic'));
+    if (topicParam !== null && categoryArr.includes(topicParam.toLowerCase()))
+      setCategoryBtnState(searchParams.get('topic').toLowerCase());
 
     const sortByParam = searchParams.get('sort_by');
     if (sortByParam === 'comment_count')
       setSortBtnState("Comments");
     else if (sortByParam !== null)
-      setSortBtnState(sortByParam);
+      setSortBtnState(sortByParam.toLowerCase());
     
     const orderParam = searchParams.get('order');
     if (orderParam === 'asc')
@@ -42,7 +42,6 @@ function FilterBar() {
   });
 
   const handleClickOutside = (event) => {
-    console.log("Handling outside menu click!");
     const className = event.target.className;
 
     const ignoreClasses = ["dropdown-menu__link", "dropdown-menu", "dropdown__btn", 
@@ -54,8 +53,6 @@ function FilterBar() {
   };
 
   const toggleCategoryMenuVis = () => {
-    console.log("Toggle category menu visibility!");
-
     // Turn off other menus
     setSortMenuVis(false);
     setOrderMenuVis(false);
@@ -64,8 +61,6 @@ function FilterBar() {
   };
 
   const toggleSortMenuVis = () => {
-    console.log("Toggle sort menu visibility!");
-
     // Turn off other menus
     setCategoryMenuVis(false);
     setOrderMenuVis(false);
@@ -74,8 +69,6 @@ function FilterBar() {
   };
 
   const toggleOrderMenuVis = () => {
-    console.log("Toggle order menu visibility!");
-
     // Turn off other menus
     setCategoryMenuVis(false);
     setSortMenuVis(false);
@@ -84,8 +77,6 @@ function FilterBar() {
   };
 
   const toggleOffAllMenuVis = () => {
-    console.log("Toggle off all menu visibility!");
-
     setCategoryMenuVis(false);
     setSortMenuVis(false);
     setOrderMenuVis(false);
@@ -93,55 +84,43 @@ function FilterBar() {
 
   const handleCategoryClick = (event) => {
     const topic = event.target.name;
-    console.log(topic);
+    console.log("Clicked Category: ", topic);
 
     setCategoryBtnState(topic);
     toggleOffAllMenuVis();
 
-    if (topic === "all") {
-      // Remove topic from search params
-      setSearchParams((currSearchParams) => {
+    setSearchParams((currSearchParams) => {
+      if (topic === 'all')
         currSearchParams.delete('topic');
-
-        return currSearchParams;
-      });
-    }
-    else {
-      setSearchParams((currSearchParams) => {
+      else
         currSearchParams.set('topic', topic);
 
-        return currSearchParams;
-      });
-    }
+      return currSearchParams;
+    });
   };
 
   const handleSortByClick = (event) => {
     const sortBy = event.target.name;
-
-    console.log(sortBy);
+    console.log("Clicked Sort By: ", sortBy);
 
     setSortBtnState(sortBy);
     toggleOffAllMenuVis();
 
-    if (sortBy === "date") {
-      setSearchParams((currSearchParams) => {
+    setSearchParams((currSearchParams) => {
+      if (sortBy === "date")
         currSearchParams.delete('sort_by');
-      });
-    } else {
-      setSearchParams((currSearchParams) => {
-        if (sortBy === "comments")
-          currSearchParams.set('sort_by', 'comment_count');
-        else
-          currSearchParams.set('sort_by', sortBy);
+      if (sortBy === "comments")
+        currSearchParams.set('sort_by', 'comment_count');
+      else
+        currSearchParams.set('sort_by', sortBy);
 
-        return currSearchParams;
-      });
-    }
+      return currSearchParams;
+    });
   };
 
   const handleOrderClick = (event) => {
     const order = event.target.name;
-    console.log(order);
+    console.log("Clicked Order: ", order);
 
     if (order === "asc")
       setOrderBtnState("Ascending");
