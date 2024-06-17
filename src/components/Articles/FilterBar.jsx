@@ -15,13 +15,31 @@ function FilterBar() {
 
   // TODO: Test more extensively
   useEffect(() => {
-    // Handle click outside menu box
     document.addEventListener("mousedown", handleClickOutside);    
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Set state to search params
+  useEffect(() => {
+    // TODO CHECK ALL THESE VALUES EXIST
+    // TODO: Convert to lower case
+    const topicParam = searchParams.get('topic');
+    if (topicParam !== null)
+      setCategoryBtnState(searchParams.get('topic'));
+
+    const sortByParam = searchParams.get('sort_by');
+    if (sortByParam === 'comment_count')
+      setSortBtnState("Comments");
+    else if (sortByParam !== null)
+      setSortBtnState(sortByParam);
+    
+    const orderParam = searchParams.get('order');
+    if (orderParam === 'asc')
+      setOrderBtnState("Ascending");
+  });
 
   const handleClickOutside = (event) => {
     console.log("Handling outside menu click!");
@@ -83,32 +101,63 @@ function FilterBar() {
     if (topic === "all") {
       // Remove topic from search params
       setSearchParams((currSearchParams) => {
-        currSearchParams.delete("topic");
+        currSearchParams.delete('topic');
 
         return currSearchParams;
       });
     }
     else {
-      setSearchParams({'topic': topic});
+      setSearchParams((currSearchParams) => {
+        currSearchParams.set('topic', topic);
+
+        return currSearchParams;
+      });
     }
   };
 
   const handleSortByClick = (event) => {
-    console.log(event.target.name);
+    const sortBy = event.target.name;
 
-    setSortBtnState(event.target.name);
+    console.log(sortBy);
+
+    setSortBtnState(sortBy);
     toggleOffAllMenuVis();
+
+    if (sortBy === "date") {
+      setSearchParams((currSearchParams) => {
+        currSearchParams.delete('sort_by');
+      });
+    } else {
+      setSearchParams((currSearchParams) => {
+        if (sortBy === "comments")
+          currSearchParams.set('sort_by', 'comment_count');
+        else
+          currSearchParams.set('sort_by', sortBy);
+
+        return currSearchParams;
+      });
+    }
   };
 
   const handleOrderClick = (event) => {
-    console.log(event.target.name);
+    const order = event.target.name;
+    console.log(order);
 
-    if (event.target.name === "asc")
+    if (order === "asc")
       setOrderBtnState("Ascending");
     else
       setOrderBtnState("Descending");
 
     toggleOffAllMenuVis();
+
+    setSearchParams((currSearchParams) => {
+      if (order === "desc")
+        currSearchParams.delete('order');
+      else
+        currSearchParams.set('order', order);
+      
+      return currSearchParams;
+    });
   };
 
   return (
@@ -150,6 +199,9 @@ function FilterBar() {
               <button name="author" className="dropdown-menu__link" onClick={handleSortByClick}>
                 Author
               </button>
+              <button name="date" className="dropdown-menu__link" onClick={handleSortByClick}>
+                Date
+              </button>              
               <button name="title" className="dropdown-menu__link" onClick={handleSortByClick}>
                 Title
               </button>
