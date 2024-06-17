@@ -40,8 +40,8 @@ function Articles() {
 
     console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
 
-    fetchAppendArticles(pageRef.current, abortController.current, topicParam
-        , sortByParam, orderParam);
+    fetchAppendArticles(pageRef.current, abortController.current, topicParam, 
+        sortByParam, orderParam);
 
     return () => {
       abortController.current.abort();
@@ -149,7 +149,7 @@ function Articles() {
   }
 
   return (
-      <section className="articles-section">
+      <section className="content-section">
         <FilterBar />
         {articlesBody}
 
