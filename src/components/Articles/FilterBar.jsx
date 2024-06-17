@@ -21,25 +21,28 @@ function FilterBar() {
     };
   }, []);
 
-  // Set state to search params
-  // TODO: Convert to lower case
-  // TODO: Check values exist
+  // Set state to reflect searchParams
   useEffect(() => {
-    const categoryArr = ["all", "coding", "cooking", "football"];
+    parseSearchParamsToState(searchParams);
+  }, [searchParams]);
+
+  const parseSearchParamsToState = (searchParams) => {
     const topicParam = searchParams.get('topic');
-    if (topicParam !== null && categoryArr.includes(topicParam.toLowerCase()))
+    if (topicParam !== null)
       setCategoryBtnState(searchParams.get('topic').toLowerCase());
 
     const sortByParam = searchParams.get('sort_by');
     if (sortByParam === 'comment_count')
       setSortBtnState("Comments");
+    else if (sortByParam === 'created_at')
+      setSortBtnState("Date");
     else if (sortByParam !== null)
       setSortBtnState(sortByParam.toLowerCase());
     
     const orderParam = searchParams.get('order');
     if (orderParam === 'asc')
-      setOrderBtnState("Ascending");
-  });
+      setOrderBtnState("Ascending");  
+  };
 
   const handleClickOutside = (event) => {
     const className = event.target.className;
@@ -178,7 +181,7 @@ function FilterBar() {
               <button name="author" className="dropdown-menu__link" onClick={handleSortByClick}>
                 Author
               </button>
-              <button name="date" className="dropdown-menu__link" onClick={handleSortByClick}>
+              <button name="created_at" className="dropdown-menu__link" onClick={handleSortByClick}>
                 Date
               </button>              
               <button name="title" className="dropdown-menu__link" onClick={handleSortByClick}>
