@@ -6,9 +6,12 @@ import './index.css';
 import FilterBar from './FilterBar';
 import ArticleCard from './ArticleCard';
 import Loading from '../Loading';
+import { useSearchParams } from 'react-router-dom';
 
 function Articles() {
   const RESULT_LIMIT = 10;
+
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +24,7 @@ function Articles() {
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On initial mount
+  // On Mount
   useEffect(() => {
     console.log("Mounting Articles component!");
     abortController.current = new AbortController();
@@ -29,14 +32,17 @@ function Articles() {
     pageRef.current = 1;
     setArticles([]);
 
-    fetchAppendArticles(pageRef.current, abortController.current);
+    const topicParam = searchParams.get("topic");
+    console.log("TopicParam: ", topicParam);
+
+    fetchAppendArticles(pageRef.current, abortController.current, topicParam);
 
     return () => {
       abortController.current.abort();
     };
-  }, []);
+  }, [searchParams]);
 
-  // When articles data changes
+  // Articles State
   useEffect(() => {
     // Add IntersectionObserver for infinite scrolling
     let interOptions = {
@@ -51,7 +57,7 @@ function Articles() {
 
           if (hasMoreArticles && entry.isIntersecting && !isLoading) {
             pageRef.current = pageRef.current + 1;
-            fetchAppendArticles(pageRef.current, abortController.current);
+            fetchAppendArticles(pageRef.current, abortController.current, searchParams.get("topic"));
           }
         });
       }, 
@@ -66,7 +72,7 @@ function Articles() {
     };
   }, [articles]);
 
-  const fetchAppendArticles = (page = 1, abortController) => {
+  const fetchAppendArticles = (page = 1, abortController, topic) => {
     if (isLoading) {
       console.log("Already fetching articles!  Returning!");
 
@@ -83,7 +89,8 @@ function Articles() {
     const axOptions = {
       signal: abortController.signal,
       params: {
-        p: page
+        p: page,
+        topic: topic
       }
     };
 
