@@ -3,14 +3,12 @@ import dateParsing from '../../util-functions/date-parsing';
 
 import './ArticleCard.css';
 
-// TODO :Author
+// TODO : Author
 function ArticleCard({article}) {
   return (
     <>
-      <img alt="article image" className="article-card__img" src={article.article_img_url} />
-      <Link to={`/articles/${article.article_id}`}>
-        <h2 className="article-card__title">{article.title}</h2>
-      </Link>
+      <img alt="Article Image" className="article-card__img" src={article.article_img_url} />
+      <h2 className="article-card__title">{article.title}</h2>
       <p className="article-card__desc-summary">
         {(article.body_preview.length >= 410) ?
             article.body_preview.slice(0, 410).trim() + "..."

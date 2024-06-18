@@ -7,6 +7,16 @@
   padding: 2px;
 }
 
+.article-card-full-link:hover .article-card__img {
+  opacity: 0.9;
+}
+
+.article-card-full-link:hover .article-card__title, 
+.article-card-full-link:hover .article-card__desc-summary
+{
+  /* color: rgb(48, 48, 48); */
+}
+
 .article-card__title {
   font-size: 1.0rem;
   text-align: left;
