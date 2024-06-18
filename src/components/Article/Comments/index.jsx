@@ -75,7 +75,7 @@ function Comments({article}) {
     <>
       <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
       {(isLoading) ? 
-          <Loading />
+          <Loading size={'small'} />
         :
           commentsBody
       }
