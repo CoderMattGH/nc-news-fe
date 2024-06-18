@@ -4,6 +4,7 @@ import {useState, useRef, useEffect} from 'react';
 import constants from '../../../constants';
 
 import CommentCard from './CommentCard';
+import Loading from '../../Loading';
 
 import './index.css';
 
@@ -59,19 +60,22 @@ function Comments({article}) {
         });
   };
 
-  let commentsBody = (
-    comments.map((comment) => {
+  let commentsBody;
+  if (!article.comment_count) {
+    commentsBody = (<p className="no-comments-msg">This article does not contain any comments</p>);
+  } else {
+    commentsBody = comments.map((comment) => {
       return (
         <CommentCard comment={comment} key={comment.comment_id}/>
       );
-    })
-  );
+    });
+  }
 
   return (
     <>
       <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
-      {(!article.comment_count) ? 
-          <p className="no-comments-msg">This article does not contain any comments</p>
+      {(isLoading) ? 
+          <Loading />
         :
           commentsBody
       }
