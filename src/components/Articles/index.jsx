@@ -134,18 +134,20 @@ function Articles() {
 
       if (isLastCard) {
         return (
-          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}>
-          <div className="article-card last-card" ref={lastCardRef} key={article.article_id} >
-            <ArticleCard article={article} />
-          </div>
+          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
+               key={article.article_id}>
+            <div className="article-card last-card" ref={lastCardRef}>
+              <ArticleCard article={article} />
+            </div>
           </Link>
         );
       } else {
         return (
-          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}>
-          <div className="article-card" key={article.article_id} >
-            <ArticleCard article={article} />
-          </div>
+          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
+              key={article.article_id}>
+            <div className="article-card">
+              <ArticleCard article={article} />
+            </div>
           </Link>
         );      
       }
