@@ -31,7 +31,9 @@
 }
 
 .article-content__body {
-  font-size: 0.83rem;
+  font-size: 0.8rem;
+  padding: 2px 3px;
+  text-align: justify;
 }
 
 .article-comments-section {

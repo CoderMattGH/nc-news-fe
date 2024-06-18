@@ -71,6 +71,15 @@ function Article() {
       <>
         <h2 className="article-content__title">{article.title}</h2>
         <div className="article-bar">
+          <p className="button__votes button__element--gray">
+            <img className="button__vote_btn" src='/images/buttons/upvote.svg' />
+            <span>{article.votes}</span>
+            <img className="button__vote_btn" src='/images/buttons/downvote.svg' />
+          </p>
+          <p className="button__element--gray button__element--grid">
+            <span className="button__element--inner-label">Posted:</span>
+            <span>{dateParser.convertUnixDate(article.created_at)}</span>
+          </p>
           <p className=
               "button__element--gray button__element--grid button__category">
             <span className="button__element--inner-label">Category:</span>
@@ -79,14 +88,6 @@ function Article() {
           <p className="button__element--gray button__element--grid">
             <span className="button__element--inner-label">Author:</span>
             <span>{article.author}</span>
-          </p>
-          <p className="button__element--gray">
-            <span>{dateParser.convertUnixDate(article.created_at)}</span>
-          </p>
-          <p className="button__votes button__element--gray">
-            <img className="button__vote_btn" src='/images/buttons/upvote.svg' />
-            <span>{article.votes}</span>
-            <img className="button__vote_btn" src='/images/buttons/downvote.svg' />
           </p>
         </div>
         <img className="article-content__img" src={article.article_img_url}></img>
