@@ -6,9 +6,3 @@
   grid-template-rows: auto 1fr auto;
   height: 160px;
 }
-
-.no-articles-found {
-  font-weight: bold;
-  padding: 20px;
-  font-size: 1.0rem;
-}
