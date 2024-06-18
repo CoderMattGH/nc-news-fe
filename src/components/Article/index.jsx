@@ -49,9 +49,6 @@ function Article() {
         .then(({data}) => {
           console.log("Successfully fetched article!");
 
-          // Append article
-          console.log(data.article);
-
           setArticle(data.article);
         })
         .catch((err) => {
