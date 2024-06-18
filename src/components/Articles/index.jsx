@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {useState,useEffect, useRef} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import {useSearchParams, Link} from 'react-router-dom';
 
 import constants from '../../constants';
 
@@ -40,8 +40,8 @@ function Articles() {
 
     console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
 
-    fetchAppendArticles(pageRef.current, abortController.current, topicParam
-        , sortByParam, orderParam);
+    fetchAppendArticles(pageRef.current, abortController.current, topicParam, 
+        sortByParam, orderParam);
 
     return () => {
       abortController.current.abort();
@@ -134,22 +134,26 @@ function Articles() {
 
       if (isLastCard) {
         return (
+          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}>
           <div className="article-card last-card" ref={lastCardRef} key={article.article_id} >
             <ArticleCard article={article} />
           </div>
+          </Link>
         );
       } else {
         return (
+          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}>
           <div className="article-card" key={article.article_id} >
             <ArticleCard article={article} />
           </div>
+          </Link>
         );      
       }
     });
   }
 
   return (
-      <section className="articles-section">
+      <section className="content-section">
         <FilterBar />
         {articlesBody}
 

@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
 #root {
   /* border: 1px solid red; */
   width: 100%;
@@ -15,4 +25,74 @@
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
+}
+
+.content-section {
+  /* border: 1px solid black; */
+  margin: 10px 0px;
+  padding: 0 5px;
+  width: 100%;
+  max-width: 850px;
+  font-size: 0.81rem;
+  
+  display: grid;
+  grid-template-columns: auto;
+
+  gap: 15px;
+}
+
+/* TODO: Remove modifier*/
+.button__element--gray {
+  text-align: center;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 5px 19px;
+  background-color: rgb(233, 233, 233);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.button__element--grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.button__element--inner-label {
+  font-size: 0.75rem;
+  color: rgb(85, 85, 85);
+}
+
+
+.button__element--wide {
+  min-width: 120px;
+}
+
+.button__category {
+  text-transform: capitalize;
+}
+
+.button__votes {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.button__vote_btn {
+  height: 16px;
+}
+
+.button__vote_btn:hover {
+  opacity: 0.7;
+}
+
+.no-articles-found {
+  font-weight: bold;
+  padding: 20px;
+  font-size: 1.0rem;
+  text-align: center;
 }
