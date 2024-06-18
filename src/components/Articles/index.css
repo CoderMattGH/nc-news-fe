@@ -1,6 +1,4 @@
 .article-card {
-  /* padding: 5px; */
-  /* border: 1px solid salmon; */
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
