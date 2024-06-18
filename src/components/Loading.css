@@ -5,10 +5,17 @@
   padding: 10px;
 }
 
+.loading-icon--small {
+  height: 70px;
+}
+
+.loading-icon--medium {
+  height: 100px;
+}
+
 .loading-icon {
   /* border: 1px solid black; */
-  
-  height: 100px;
+  /* height: 100px; */
   animation-name: loading-animation;
   animation-duration: 1.4s;
   animation-direction: alternate-reverse;
