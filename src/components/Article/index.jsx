@@ -5,13 +5,13 @@ import {useState, useRef, useEffect} from 'react';
 import constants from '../../constants';
 import dateParser from '../../util-functions/date-parsing.js';
 
+import Comments from './Comments/';
 import Loading from '../Loading';
 
 import './index.css';
 
 function Article() {
   let {article_id: articleId} = useParams();
-  console.log(articleId);
   
   let [article, setArticle] = useState(null);
   let [isLoading, setIsLoading] = useState(false);
@@ -93,10 +93,8 @@ function Article() {
         <img className="article-content__img" src={article.article_img_url}></img>
         <p className="article-content__body">{article.body}</p>
 
-        {/* Move to Comments Component */}
         <section className="article-comments-section">
-          <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
-          <p>This article doesn't contain any comments.</p>
+          <Comments article={article} />
         </section>
       </>
     );
