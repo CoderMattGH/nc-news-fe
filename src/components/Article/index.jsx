@@ -68,7 +68,7 @@ function Article() {
 
   let articleBody;
   if (!article) {
-    articleBody = (<p>No article found!</p>);
+    articleBody = (<p className="no-articles-found">No article found!</p>);
   } else {
     articleBody = (
       <>
@@ -94,6 +94,8 @@ function Article() {
         </div>
         <img className="article-content__img" src={article.article_img_url}></img>
         <p className="article-content__body">{article.body}</p>
+
+        {/* Move to Comments Component */}
         <section className="article-comments-section">
           <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
           <p>This article doesn't contain any comments.</p>
