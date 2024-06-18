@@ -30,15 +30,15 @@ a {
 .content-section {
   /* border: 1px solid black; */
   margin: 10px 0px;
-  padding: 0 10px;
+  padding: 0 5px;
   width: 100%;
-  max-width: 840px;
+  max-width: 850px;
   font-size: 0.81rem;
   
   display: grid;
   grid-template-columns: auto;
 
-  gap: 17px;
+  gap: 15px;
 }
 
 /* TODO: Remove modifier*/
