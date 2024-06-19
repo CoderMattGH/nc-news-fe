@@ -1,0 +1,40 @@
+.fullscreen-shadow-overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.705);
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  
+  display: grid;
+  grid-template-columns: 400px;
+  /* grid-template-rows: clamp(150px, 12vw, 200px); */
+  justify-content: center;
+  align-content: center;
+}
+
+.error-overlay {
+  border-radius: 30px;
+  padding: 20px;
+  background-color: white;
+  
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 100px auto auto;
+  justify-items: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.error-overlay * {
+  /* border: 1px solid yellow; */
+}
+
+.error-overlay-message {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.error-overlay-img {
+  height: 100%;
+}
