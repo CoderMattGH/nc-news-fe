@@ -1,17 +1,28 @@
+import {useContext} from 'react';
+
+import {UserContext} from '../../contexts/User';
+
 import './MenuBar.css';
 
 function MenuBar() {
+  const {user} = useContext(UserContext);
+
   return (
     <nav className="nav">
-      <li className="nav__entry">
-        Home
-      </li>
-      <li className="nav__entry">
-        Articles
-      </li>
-      <li className="nav__entry">
-        Login
-      </li>
+      {(user) ?
+          <li className="nav__entry">
+            Logout
+          </li>
+        :
+          <>
+            <li className="nav__entry">
+              Log in
+            </li>
+            <li className="nav__entry">
+              Register
+            </li>
+          </>
+      }
     </nav>
   );
 }
