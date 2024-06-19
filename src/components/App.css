@@ -67,7 +67,6 @@ a {
   color: rgb(85, 85, 85);
 }
 
-
 .button__element--wide {
   min-width: 120px;
 }
@@ -96,4 +95,23 @@ a {
   padding: 20px;
   font-size: 1.0rem;
   text-align: center;
+}
+
+.default-button {
+  border: 0;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 9px 22px;
+  background-color: rgb(233, 233, 233);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+
+  cursor: pointer;
+}
+
+.default-button:hover {
+  background-color:rgb(240, 240, 240);
 }
