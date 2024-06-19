@@ -7,19 +7,59 @@ import {UserContext} from '../../contexts/User';
 
 import './ArticleCard.css';
 
-function ArticleCard({article, upVoteArticle, downVoteArticle}) {
+function ArticleCard({article, upDownVoteArticle, setArticles}) {
   const {user} = useContext(UserContext);
 
   const handleUpVoteClick = (event) => {
     event.preventDefault();
 
-    upVoteArticle();
+    // Optimistically increment vote count
+    incDecArticleVotes(article.article_id, true);
+
+    upDownVoteArticle(article.article_id, 1)
+        .then(() => {
+          console.log("Upvote successful!");
+        })
+        .catch((err) => {
+          // Decrement vote back to original value
+          incDecArticleVotes(article.article_id, false);
+        });
   };
 
   const handleDownVoteClick = (event) => {
     event.preventDefault();
 
-    downVoteArticle();
+    // Optimistically decrement vote count
+    incDecArticleVotes(article.article_id, false);
+
+    upDownVoteArticle(article.article_id, -1)
+        .then(() => {
+          console.log("Down vote successful!");
+        })
+        .catch((err) => {
+          // Decrement vote back to original value
+          incDecArticleVotes(article.article_id, true);
+        });
+  };
+
+  const incDecArticleVotes = (articleId, incDecBool) => {
+    // Optimistically render upvote/downvote
+    setArticles((currArticles) => {
+      const newArticlesArr = currArticles.map((a) => {
+        const tempArt = {...a};
+
+        if(tempArt.article_id === articleId) {
+          if (incDecBool)
+            tempArt.votes++;
+          else
+            tempArt.votes--;
+        }
+
+        return tempArt;
+      });
+
+      return newArticlesArr;
+    });
   };
 
   const preventLinkRedirect = (event) => {
