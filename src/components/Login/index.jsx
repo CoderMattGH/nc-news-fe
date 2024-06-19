@@ -122,6 +122,14 @@ function Login() {
         .catch((err) => {
           // TODO: Handle errors properly
           console.log(err);
+
+          // If error is from server
+          if (err.response) {
+            if (err.response.status === 404)
+              setErrMsg("Invalid username or password!");
+          } else {
+            setErrMsg("An unknown error occurred!");
+          }
         })
         .finally(() => {
           setIsLoading(false);
