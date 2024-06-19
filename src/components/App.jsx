@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {useContext, useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 
@@ -26,23 +27,59 @@ function App() {
     new Image().src = '/images/loading_icon.svg';
   }, []);
 
-  const upVoteArticle = () => {
+  const upDownVoteArticle = async (articleId, increment) => {
     if (!user) {
-      console.log("ERROR: Only logged in users can vote!");
-
       setErrOverlayMsg(constants.ERR_MSG_NOT_LOGGED_IN);
-      return;
+
+      throw new Error("USER_NOT_LOGGED_IN");
     }
+
+    // Try and upvote article
+    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
+
+    console.log(url);
+
+    const reqBody = {inc_votes: increment};
+
+    return axios.patch(url, reqBody)
+        .then(({data}) => {
+          return data.article;
+        })
+        .catch((err) => {
+          console.log("ERROR: Could not upvote article!");
+          console.log(err);
+          setErrOverlayMsg("Unable to register article vote!");
+
+          throw new Error("SERVER_ERROR");
+        });
   };
 
-  const downVoteArticle = () => {
-    if(!user) {
-      console.log("ERROR: Only logged in users can vote!");
+  // const downVoteArticle = async (articleId) => {
+  //   if(!user) {
+  //     setErrOverlayMsg(constants.ERR_MSG_NOT_LOGGED_IN);
 
-      setErrOverlayMsg(constants.ERR_MSG_NOT_LOGGED_IN);
-      return;
-    }
-  }
+  //     throw new Error("USER_NOT_LOGGED_IN");
+  //   }
+
+  //   // Try and downvote article
+  //   const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
+
+  //   console.log(url);
+
+  //   const reqBody = {inc_votes: -1};
+
+  //   return axios.patch(url, reqBody)
+  //       .then(({data}) => {
+  //         return data.article;
+  //       })
+  //       .catch((err) => {
+  //         console.log("ERROR: Could not upvote article!");
+  //         console.log(err);
+  //         setErrOverlayMsg("Unable to register article vote!");
+
+  //         throw new Error("SERVER_ERROR");
+  //       });    
+  // };
 
   // TODO: Cleaner implementation of "/" and "/articles" routes.
   return (
@@ -52,11 +89,11 @@ function App() {
         <Routes>
           <Route 
             path="/"
-            element={<Articles upVoteArticle={upVoteArticle} downVoteArticle={downVoteArticle} />} 
+            element={<Articles upDownVoteArticle={upDownVoteArticle} />} 
           />
           <Route 
             path={"/articles"}
-            element={<Articles upVoteArticle={upVoteArticle} downVoteArticle={downVoteArticle} />} 
+            element={<Articles upDownVoteArticle={upDownVoteArticle} />} 
           />
           <Route path="/articles/:article_id" element={<Article />} />
           <Route path="/login" element={<Login />} />
