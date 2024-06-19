@@ -127,6 +127,8 @@ function Login() {
           if (err.response) {
             if (err.response.status === 404)
               setErrMsg("Invalid username or password!");
+            else
+              setErrMsg("An unknown error occurred!");
           } else {
             setErrMsg("An unknown error occurred!");
           }
