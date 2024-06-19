@@ -1,10 +1,25 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import dateParsing from '../../util-functions/date-parsing';
 
 import './ArticleCard.css';
 
-// TODO : Author
-function ArticleCard({article}) {
+function ArticleCard({article, upVoteArticle, downVoteArticle}) {
+  const handleUpVoteClick = (event) => {
+    event.preventDefault();
+
+    upVoteArticle();
+  };
+
+  const handleDownVoteClick = (event) => {
+    event.preventDefault();
+
+    downVoteArticle();
+  };
+
+  const preventLinkRedirect = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <img alt="Article Image" className="article-card__img" src={article.article_img_url} />
@@ -17,10 +32,16 @@ function ArticleCard({article}) {
         }
       </p>
       <div className="article-card__footer">
-        <p className="button__votes button__element--gray">
-          <img alt="upvote" className="button__vote_btn" src="/images/buttons/upvote.svg" />
+        <p className="button__votes button__element--gray" onClick={preventLinkRedirect} >
+          <img
+            className="button__vote_btn" onClick={handleUpVoteClick} alt="upvote" 
+            src="/images/buttons/upvote.svg" 
+          />
           <span>{article.votes}</span>
-          <img alt="downvote" className="button__vote_btn" src="/images/buttons/downvote.svg" />
+          <img
+            className="button__vote_btn" onClick={handleDownVoteClick} alt="downvote" 
+            src="/images/buttons/downvote.svg" 
+          />
         </p>
         <p className="button__category button__element--gray">{article.topic}</p>
         <p className="article_card__date button__element--gray">
