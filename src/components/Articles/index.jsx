@@ -10,7 +10,7 @@ import FilterBar from './FilterBar';
 import ArticleCard from './ArticleCard';
 import Loading from '../Loading';
 
-function Articles() {
+function Articles({upVoteArticle, downVoteArticle}) {
   const RESULT_LIMIT = 10;
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -137,7 +137,9 @@ function Articles() {
           <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
                key={article.article_id}>
             <div className="article-card last-card" ref={lastCardRef}>
-              <ArticleCard article={article} />
+              <ArticleCard 
+                article={article} upVoteArticle={upVoteArticle} downVoteArticle={downVoteArticle}
+              />
             </div>
           </Link>
         );
@@ -146,7 +148,9 @@ function Articles() {
           <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
               key={article.article_id}>
             <div className="article-card">
-              <ArticleCard article={article} />
+              <ArticleCard 
+                article={article} upVoteArticle={upVoteArticle} downVoteArticle={downVoteArticle}
+              />
             </div>
           </Link>
         );      
