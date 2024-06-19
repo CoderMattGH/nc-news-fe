@@ -5,6 +5,7 @@ import Articles from './Articles';
 import Article from './Article';
 import Login from './Login';
 import Logout from './Logout';
+import Register from './Register';
 
 import './App.css';
 import { useEffect } from 'react';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/articles/:article_id" element={<Article />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </main>
     </>
