@@ -1,0 +1,23 @@
+.register-section {
+  /* border: 1px solid red; */
+  padding: 10px;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 150px auto;
+  justify-items: center;
+  gap: 25px;
+}
+
+.register-section * {
+  /* border: 1px solid yellow; */
+}
+
+.register-image {
+  height: 100%;
+}
+
+.registration-closed-msg {
+  font-weight: bold;
+  font-size: 1rem;
+}

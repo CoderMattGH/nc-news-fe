@@ -3,3 +3,8 @@
   text-align: center;
   padding: 20px 5px;
 }
+
+.article-comments__comments_title {
+  font-size: 1.15rem;
+  margin-bottom: 5px;
+}

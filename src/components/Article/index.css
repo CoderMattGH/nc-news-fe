@@ -2,7 +2,7 @@
   /* border: 1px solid red; */
   text-align: left;
   display: grid;
-  gap: 4px;
+  gap: 7px;
 }
 
 .article-bar {
@@ -30,13 +30,13 @@
 }
 
 .article-content__body {
-  font-size: 0.8rem;
-  padding: 2px 3px;
+  font-size: 0.9rem;
+  padding: 5px 3px;
   text-align: justify;
 }
 
 .article-comments-section {
-  margin: 6px 0 0 0;
+  margin: 10px 0 0 0;
   display: grid;
   gap: 5px;
 }

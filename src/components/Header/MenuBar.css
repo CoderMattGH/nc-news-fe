@@ -10,3 +10,32 @@
   text-transform: uppercase;
   padding: 0 10px;
 }
+
+.menu-bar-button {
+  border: 0;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 9px 22px;
+  background-color: rgb(233, 233, 233);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+
+  cursor: pointer;
+}
+
+.menu-bar-button:hover {
+  background-color:rgb(240, 240, 240);
+}
+
+.menu-bar-button__logout {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 7px;
+}
+
+.menu-bar-button__username {
+  color: rgb(83, 83, 83);  
+}
