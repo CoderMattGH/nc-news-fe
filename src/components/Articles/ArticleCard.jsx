@@ -1,9 +1,15 @@
 import {Link} from 'react-router-dom';
+import {useContext} from 'react';
+
 import dateParsing from '../../util-functions/date-parsing';
+
+import {UserContext} from '../../contexts/User';
 
 import './ArticleCard.css';
 
 function ArticleCard({article, upVoteArticle, downVoteArticle}) {
+  const {user} = useContext(UserContext);
+
   const handleUpVoteClick = (event) => {
     event.preventDefault();
 
