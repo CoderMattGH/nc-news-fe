@@ -1,8 +1,10 @@
 import axios from 'axios';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import Loading from '../Loading';
+
+import {UserContext} from '../../contexts/User';
 
 import constants from '../../constants';
 
@@ -17,14 +19,21 @@ function Login() {
 
   const abortController = useRef(null);
 
+  const {isUserLoggedIn, loginUser} = useContext(UserContext);
+
   const navigate = useNavigate();
 
   // On component mount
   useEffect(() => {
-    // Check if logged in
-    
-
     console.log("Mounting Login component!");
+
+    // If user logged in
+    if (isUserLoggedIn()) {
+      console.log("User is already logged in!  Forwarding...");
+      navigate("/");
+
+      return;
+    }
 
     setUsernameInput("");
     setPasswordInput("");
@@ -98,19 +107,17 @@ function Login() {
 
     const axOptions = {
       signal: abortController.signal,
-      params: {
-      }
     };
 
-    let loginSuccess = false;
+    let credentialsOK = false;
     axios.get(url, axOptions)
         .then(({data}) => {
           console.log("User found! Logging in...");
           console.log(data.user);
 
-          // TODO: Set User context
+          loginUser(data.user);
 
-          loginSuccess = true;
+          credentialsOK = true;
         })
         .catch((err) => {
           // If standard error
@@ -120,7 +127,7 @@ function Login() {
           setIsLoading(false);
           toggleFormInputs(true);
 
-          if (loginSuccess) {
+          if (credentialsOK) {
             console.log("Forwarding to home page!");
             navigate("/");
           }
