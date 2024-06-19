@@ -37,8 +37,6 @@ function App() {
     // Try and upvote article
     const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
 
-    console.log(url);
-
     const reqBody = {inc_votes: increment};
 
     return axios.patch(url, reqBody)
@@ -54,34 +52,6 @@ function App() {
         });
   };
 
-  // const downVoteArticle = async (articleId) => {
-  //   if(!user) {
-  //     setErrOverlayMsg(constants.ERR_MSG_NOT_LOGGED_IN);
-
-  //     throw new Error("USER_NOT_LOGGED_IN");
-  //   }
-
-  //   // Try and downvote article
-  //   const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
-
-  //   console.log(url);
-
-  //   const reqBody = {inc_votes: -1};
-
-  //   return axios.patch(url, reqBody)
-  //       .then(({data}) => {
-  //         return data.article;
-  //       })
-  //       .catch((err) => {
-  //         console.log("ERROR: Could not upvote article!");
-  //         console.log(err);
-  //         setErrOverlayMsg("Unable to register article vote!");
-
-  //         throw new Error("SERVER_ERROR");
-  //       });    
-  // };
-
-  // TODO: Cleaner implementation of "/" and "/articles" routes.
   return (
     <>
       <Header />
