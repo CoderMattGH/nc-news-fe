@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import Loading from '../Loading';
 
@@ -10,13 +11,36 @@ import './index.css';
 function Login() {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-
   const [formEnabled, setFormEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const [errMsg, setErrMsg] = useState(null);
 
+  const abortController = useRef(null);
+
+  const navigate = useNavigate();
+
   // On component mount
+  useEffect(() => {
+    // Check if logged in
+    
+
+    console.log("Mounting Login component!");
+
+    setUsernameInput("");
+    setPasswordInput("");
+    setFormEnabled(true);
+    setIsLoading(false);
+    setErrMsg("");
+
+    abortController.current = new AbortController();
+
+    // On dismount, cancel any login requests
+    return () => {
+      abortController.current.abort()
+    };
+  }, []);
+
+  // TODO: On User context change to something
 
   const handleUsernameInput = (event) => {
     setUsernameInput(event.target.value);
@@ -62,16 +86,48 @@ function Login() {
     setIsLoading(true);
 
     const username = usernameInput.trim();
+    checkLogin(username, abortController.current);
   };
 
-  const checkLogin = (username) => {
+  const checkLogin = (username, abortController) => {
     console.log("Checking login credentials!");
 
-    const url = `constants.USER_BASE_API_URL${username}`;
+    const url = `${constants.USER_BASE_API_URL}${username}`;
 
     console.log("URL: ", url);
 
-    
+    const axOptions = {
+      signal: abortController.signal,
+      params: {
+      }
+    };
+
+    let loginSuccess = false;
+    axios.get(url, axOptions)
+        .then(({data}) => {
+          console.log("User found! Logging in...");
+          console.log(data.user);
+
+          // TODO: Set User context
+
+          loginSuccess = true;
+        })
+        .catch((err) => {
+          // If standard error
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          toggleFormInputs(true);
+
+          if (loginSuccess) {
+            console.log("Forwarding to home page!");
+            navigate("/");
+          }
+          else {
+            console.log("ERROR: Could not login!");
+          }
+        });
   };
 
   return (
@@ -98,7 +154,7 @@ function Login() {
         />
 
         <button className="login-button" disabled={!formEnabled}>
-          SIGN IN
+          Sign In
         </button>
       </form>
 
