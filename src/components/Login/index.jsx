@@ -19,7 +19,7 @@ function Login() {
 
   const abortController = useRef(null);
 
-  const {isUserLoggedIn, loginUser} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function Login() {
     console.log("Mounting Login component!");
 
     // If user logged in
-    if (isUserLoggedIn()) {
+    if (user) {
       console.log("User is already logged in!  Forwarding...");
       navigate("/");
 
@@ -115,12 +115,12 @@ function Login() {
           console.log("User found! Logging in...");
           console.log(data.user);
 
-          loginUser(data.user);
+          setUser(data.user);
 
           credentialsOK = true;
         })
         .catch((err) => {
-          // If standard error
+          // TODO: Handle errors properly
           console.log(err);
         })
         .finally(() => {
