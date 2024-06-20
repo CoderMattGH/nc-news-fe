@@ -113,7 +113,10 @@ function App() {
             path={"/articles"}
             element={<Articles upDownVoteArticle={upDownVoteArticle} />} 
           />
-          <Route path="/articles/:article_id" element={<Article />} />
+          <Route 
+            path="/articles/:article_id" 
+            element={<Article upDownVoteArticle={upDownVoteArticle} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
