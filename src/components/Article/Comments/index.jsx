@@ -11,7 +11,7 @@ import {UserContext} from '../../../contexts/User';
 
 import './index.css';
 
-function Comments({article, setErrOverlayMsg}) {
+function Comments({article}) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +20,6 @@ function Comments({article, setErrOverlayMsg}) {
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On component mount
   useEffect(() => {
     console.log("Mounting Comments Component!");
 
@@ -41,7 +40,7 @@ function Comments({article, setErrOverlayMsg}) {
     currentReqCount.current++;
     setIsLoading(true);
 
-    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}/comments`;
+    const url = `${constants.ARTICLES_API_URL}/${articleId}/comments`;
 
     const axOptions = {
       signal: abortController.signal
@@ -73,7 +72,6 @@ function Comments({article, setErrOverlayMsg}) {
       return (
         <CommentCard 
           comment={comment} key={comment.comment_id} setComments={setComments} 
-          setErrOverlayMsg={setErrOverlayMsg}
         />
       );
     });
@@ -82,11 +80,11 @@ function Comments({article, setErrOverlayMsg}) {
   return (
     <>
       <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
-      {(isLoading) ? 
+      {isLoading ?  
           <Loading size={'small'} />
         :
           <>
-            {(user) ?
+            {user ?
                 <PostComment articleId={article.article_id} setComments={setComments} />
               :
                 null

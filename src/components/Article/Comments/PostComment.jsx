@@ -1,4 +1,5 @@
-import {useState, useEffect, useRef, useContext} from 'react';
+import axios from 'axios';
+import {useState, useEffect, useContext} from 'react';
 
 import Loading from '../../Loading';
 
@@ -8,7 +9,6 @@ import constants from '../../../constants';
 import validateComment from '../../../validators/comment-validator';
 
 import './PostComment.css';
-import axios from 'axios';
 
 function PostComment({articleId, setComments}) {
   const [commentText, setCommentText] = useState("");
@@ -48,7 +48,6 @@ function PostComment({articleId, setComments}) {
 
     // Submit comment
     const url = `${constants.ARTICLES_API_URL}/${articleId}/comments`;
-
     const reqBody = {username: user.username, body: comment};
 
     axios.post(url, reqBody)
@@ -92,19 +91,19 @@ function PostComment({articleId, setComments}) {
   return (
     <div className="post-comment-section">
       <form onSubmit={handleSubmit} className="post-comment-form">
-        {(isLoading) ?
+        {isLoading ?
             <Loading size="small"/>
           :
             null
         }
 
-        {(errMsg) ?
+        {errMsg ?
             <p className="comment-msg comment-msg--error">{errMsg}</p>
           :
             null
         }
 
-        {(displaySuccMsg) ?
+        {displaySuccMsg ?
             <p className="comment-msg comment-msg--success">Comment posted successfully!</p>
           :
             null

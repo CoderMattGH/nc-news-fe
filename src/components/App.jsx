@@ -8,7 +8,6 @@ import Article from './Article';
 import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
-import ErrorOverlay from './ErrorOverlay';
 
 import {UserContext} from '../contexts/User';
 
@@ -17,32 +16,22 @@ import constants from '../constants';
 import './App.css';
 
 function App() {
-  // If errOverlayMsg is null, then no error overlay is displayed.
-  // TODO: Put into Context
-  const [errOverlayMsg, setErrOverlayMsg] = useState(null);
-
-  // Keep track of which articles the user has voted on.
-  // Example object: {article_id: 1, increment: -1}
+  // Keep track of which articles the user has voted on: eg. {article_id: 1, increment: -1}
   const userVotes = useRef([]);
 
   const {user} = useContext(UserContext);
 
   useEffect(() => {
-    console.log("Caching loading images!");
     new Image().src = '/images/loading_icon.svg';
   }, []);
 
   // On user context change, empty votes array.
   useEffect(() => {
-    console.log("Resetting user votes!");
-
     userVotes.current = [];
   }, [user]);
 
   const upDownVoteArticle = async (articleId, increment) => {
     if (!user) {
-      setErrOverlayMsg(constants.ERR_MSG_NOT_LOGGED_IN);
-
       throw new Error("USER_NOT_LOGGED_IN");
     }
 
@@ -52,7 +41,7 @@ function App() {
     addToUserVotes(articleId, increment);
 
     // Try and upvote article
-    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
+    const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
     const reqBody = {inc_votes: increment};
 
@@ -61,16 +50,13 @@ function App() {
           return data.article;
         })
         .catch((err) => {
-          console.log("ERROR: Could not upvote article!");
           console.log(err);
-          setErrOverlayMsg("Unable to register article vote!");
 
           throw new Error("SERVER_ERROR");
         });
   };
 
   const addToUserVotes = (articleId, increment) => {
-    // Search current array for existing object
     for (const userObj of userVotes.current) {
       if (userObj.article_id === articleId) {
         userObj.increment += increment;
@@ -85,9 +71,7 @@ function App() {
   };
 
   const canUserVote = (articleId, increment) => {
-    for (let i = 0; i < userVotes.current.length; i++) {
-      const voteObj = userVotes.current[i];
-
+    for (const voteObj of userVotes.current) {
       if (voteObj.article_id === articleId) {
         if ((voteObj.increment + increment > 1) || 
             (voteObj.increment + increment < -1)) {
@@ -99,7 +83,7 @@ function App() {
     }
 
     return true;
-  };
+  };  
 
   return (
     <>
@@ -117,7 +101,7 @@ function App() {
           <Route 
             path="/articles/:article_id" 
             element={
-              <Article upDownVoteArticle={upDownVoteArticle} setErrOverlayMsg={setErrOverlayMsg}/>
+              <Article upDownVoteArticle={upDownVoteArticle} />
             }
           />
           <Route path="/login" element={<Login />} />
@@ -125,12 +109,6 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </main>
-
-      {errOverlayMsg ? 
-          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
-        : 
-          null
-      }
     </>
   )
 }

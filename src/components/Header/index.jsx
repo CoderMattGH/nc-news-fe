@@ -9,7 +9,7 @@ function Header() {
     <header className="header">
       <div className="title">
         <Link className="link" to="/">
-          <img alt="Title Logo" className="title__logo" src="/images/logo.svg"/>
+          <img alt="Title Logo" className="title__logo" src="/images/logo.svg" />
         </Link>
         <Link className="link" to="/">
           <img alt="Title Image" className="title__img" src="/images/title_main.svg" />

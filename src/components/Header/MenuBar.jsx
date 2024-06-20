@@ -30,7 +30,7 @@ function MenuBar() {
 
   return (
     <nav className="nav">
-      {(user) ?
+      {user ?
           <li className="nav__entry">
             <button className="default-button menu-bar-button__logout" onClick={clickLogout}>
               Logout:

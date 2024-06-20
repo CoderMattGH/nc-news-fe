@@ -5,21 +5,23 @@ import {useState, useRef, useEffect} from 'react';
 import constants from '../../constants';
 import dateParser from '../../util-functions/date-parsing.js';
 
-import Comments from './Comments/';
+import Comments from './Comments';
 import Loading from '../Loading';
+import ErrorOverlay from '../ErrorOverlay';
 
 import './index.css';
 
-function Article({upDownVoteArticle, setErrOverlayMsg}) {
-  let {article_id: articleId} = useParams();
+function Article({upDownVoteArticle}) {
+  const {article_id: articleId} = useParams();
   
-  let [article, setArticle] = useState(null);
-  let [isLoading, setIsLoading] = useState(false);
+  const [article, setArticle] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On component mount
   useEffect(() => {
     console.log("Mounting Article component!");
     abortController.current = new AbortController();    
@@ -33,38 +35,30 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
     };
   }, []);
 
-  // TODO: Make DRY
-  const handleUpVoteClick = (event) => {
+  const handleUpDownVoteClick = (event, increment) => {
     event.preventDefault();
 
-    const increment = 1;
-
-    // Optimistically render upvote
-    incDecArticleVotes(increment);
-
-    upDownVoteArticle(article.article_id, increment)
-        .then(() => {
-          // Success
-        })
-        .catch(() => {
-          incDecArticleVotes(increment * -1);
-        });
-  };
-
-  // TODO: Make DRY
-  const handleDownVoteClick = (event) => {
-    event.preventDefault();
-
-    const increment = -1;
-
-    // Optimistically render downvote
+    // Optimistically render downvote.
     incDecArticleVotes(increment);    
 
     upDownVoteArticle(article.article_id, increment)
         .then(() => {
           // Success
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
+
+          let errMsg;
+          if (err.message === "USER_NOT_LOGGED_IN")
+            errMsg = constants.ERR_MSG_NOT_LOGGED_IN;
+          else if (err.message === "USER_ALREADY_VOTED")
+            errMsg = null;
+          else 
+            errMsg = "Unable to register article vote!";
+
+          setErrOverlayMsg(errMsg);          
+          
+          // Decrement vote back to original value.
           incDecArticleVotes(increment * -1);
         });    
   };
@@ -85,7 +79,7 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
     currentReqCount.current++;
     setIsLoading(true);
 
-    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
+    const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
     const axOptions = {
       signal: abortController.signal
@@ -119,12 +113,12 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
         <div className="article-bar">
           <p className="button__votes button__element--gray">
             <img 
-              className="button__vote_btn" onClick={handleUpVoteClick} 
+              className="button__vote_btn" onClick={(e) => handleUpDownVoteClick(e, 1)} 
               src='/images/buttons/upvote.svg' 
             />
             <span>{article.votes}</span>
             <img 
-              className="button__vote_btn" onClick={handleDownVoteClick} 
+              className="button__vote_btn" onClick={(e) => handleUpDownVoteClick(e, -1)} 
               src='/images/buttons/downvote.svg' 
             />
           </p>
@@ -146,22 +140,28 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
         <p className="article-content__body">{article.body}</p>
 
         <section className="article-comments-section">
-          <Comments article={article} setErrOverlayMsg={setErrOverlayMsg} />
+          <Comments article={article} />
         </section>
       </>
     );
   }
 
   return (
-    <section className="content-section">
-      {isLoading ? 
-          <Loading />
-        :
-          <div className="article-content">
-            {articleBody}
-          </div>
-      }
-    </section>
+    <>
+      <section className="content-section">
+        {isLoading ? 
+            <Loading />
+          :
+            <div className="article-content">{articleBody}</div>
+        }
+      </section>
+
+      {errOverlayMsg ? 
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
+        : 
+          null
+      }      
+    </>
   );
 }
 

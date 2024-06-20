@@ -7,6 +7,7 @@ import Loading from '../Loading';
 import {UserContext} from '../../contexts/User';
 
 import constants from '../../constants';
+import usernameValidator from '../../validators/username-validator';
 
 import './index.css';
 
@@ -23,13 +24,11 @@ function Login() {
 
   const navigate = useNavigate();
 
-  // On component mount
+  // On component mount.
   useEffect(() => {
     console.log("Mounting Login component!");
 
-    // If user logged in
     if (user) {
-      console.log("User is already logged in!  Forwarding...");
       navigate("/");
 
       return;
@@ -49,8 +48,6 @@ function Login() {
     };
   }, []);
 
-  // TODO: On User context change to something
-
   const handleUsernameInput = (event) => {
     setUsernameInput(event.target.value);
   };
@@ -60,50 +57,30 @@ function Login() {
   };
 
   const toggleFormInputs = (enabled) => {
-    if (enabled)
-      console.log("Enabling form inputs!");
-    else
-      console.log("Disabling form inputs!");
-
     setFormEnabled(enabled);
   }
 
   const handleSubmit = (event) => {
-    console.log("Submitting Login form!");
     event.preventDefault();
 
-    // Validate username
-    if (usernameInput.trim() === "") {
-      console.log("ERROR: Username cannot be empty!");
-      setErrMsg("Username cannot be empty!");
+    const username = usernameInput.trim();
+
+    const usernameValObj = usernameValidator(username);
+    if (!usernameValObj.valid) {
+      setErrMsg(usernameValObj.msg);
 
       return;
     }
-
-    const usernamePattern = /^[0-9a-zA-Z_]+$/;
-    if (!usernamePattern.test(usernameInput)) {
-      console.log("ERROR: Username contains invalid characters!");
-      setErrMsg("Username contains invalid characters!");
-
-      return;
-    }
-
-    // Validation complete!
 
     toggleFormInputs(false);
     setErrMsg(null);
     setIsLoading(true);
 
-    const username = usernameInput.trim();
     checkLogin(username, abortController.current);
   };
 
   const checkLogin = (username, abortController) => {
-    console.log("Checking login credentials!");
-
-    const url = `${constants.USER_BASE_API_URL}${username}`;
-
-    console.log("URL: ", url);
+    const url = `${constants.USERS_API_URL}/${username}`;
 
     const axOptions = {
       signal: abortController.signal,
@@ -112,11 +89,8 @@ function Login() {
     let credentialsOK = false;
     axios.get(url, axOptions)
         .then(({data}) => {
-          console.log("User found! Logging in...");
-          console.log(data.user);
-
           setUser(data.user);
-
+          
           credentialsOK = true;
         })
         .catch((err) => {
@@ -141,9 +115,6 @@ function Login() {
             console.log("Forwarding to home page!");
             navigate("/");
           }
-          else {
-            console.log("ERROR: Could not login!");
-          }
         });
   };
 
@@ -154,10 +125,9 @@ function Login() {
         <h2 className="login-title">Log in to NC News</h2>
       </div>
       
-      {errMsg ? <p className="login-error-msg">Error: {errMsg}</p> : null}
+      {errMsg ? (<p className="login-error-msg">Error: {errMsg}</p>) : null}
 
       <form className="login-box" onSubmit={handleSubmit}>
-
         <label className="login-input__label" htmlFor="login-box__username">Username:</label>
         <input 
             className="login-input" id="login-box__username" type="text" 
@@ -175,7 +145,7 @@ function Login() {
         </button>
       </form>
 
-      {isLoading ? <Loading size="small" /> : null}
+      {isLoading ? (<Loading size="small" />) : null}
     </section>
   );
 }

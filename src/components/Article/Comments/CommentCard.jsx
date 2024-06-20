@@ -2,6 +2,7 @@ import axios from 'axios';
 import {useContext, useState} from 'react';
 
 import Loading from '../../Loading';
+import ErrorOverlay from '../../ErrorOverlay';
 
 import {UserContext} from '../../../contexts/User';
 
@@ -11,10 +12,12 @@ import dateParsing from '../../../util-functions/date-parsing';
 
 import './CommentCard.css';
 
-function CommentCard({comment, setComments, setErrOverlayMsg}) {
+function CommentCard({comment, setComments}) {
   const {user} = useContext(UserContext);
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
   const handleDeleteCommentClick = (event) => {
     event.preventDefault();
@@ -28,7 +31,6 @@ function CommentCard({comment, setComments, setErrOverlayMsg}) {
         .then(() => {
           console.log("Comment deleted successfully!");
 
-          // Remove comment from state
           setComments((currCommentArr) => {
             return currCommentArr.filter(
                 (com) => {
@@ -81,6 +83,12 @@ function CommentCard({comment, setComments, setErrOverlayMsg}) {
         :
           null
       }
+
+      {errOverlayMsg ? 
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
+        : 
+          null
+      }      
     </div>
   );
 }

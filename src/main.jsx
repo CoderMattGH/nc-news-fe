@@ -6,7 +6,7 @@ import './index.css';
 
 import App from './components/App';
 
-import { UserProvider } from './contexts/User';
+import {UserProvider} from './contexts/User';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

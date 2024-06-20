@@ -88,7 +88,6 @@ function FilterBar() {
 
   const handleCategoryClick = (event) => {
     const topic = event.target.name;
-    console.log("Clicked Category: ", topic);
 
     setCategoryBtnState(topic);
     toggleOffAllMenuVis();
@@ -105,7 +104,6 @@ function FilterBar() {
 
   const handleSortByClick = (event) => {
     const sortBy = event.target.name;
-    console.log("Clicked Sort By: ", sortBy);
 
     setSortBtnState(sortBy);
     toggleOffAllMenuVis();

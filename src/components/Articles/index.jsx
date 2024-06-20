@@ -4,11 +4,11 @@ import {useSearchParams, Link} from 'react-router-dom';
 
 import constants from '../../constants';
 
-import './index.css';
-
 import FilterBar from './FilterBar';
 import ArticleCard from './ArticleCard';
 import Loading from '../Loading';
+
+import './index.css';
 
 function Articles({upDownVoteArticle}) {
   const RESULT_LIMIT = 10;
@@ -18,7 +18,7 @@ function Articles({upDownVoteArticle}) {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Last ArticleCard ref (used to implement infinite scrolling)
+  // Reference to last ArticleCard for infinite scrolling.
   const lastCardRef = useRef(null);
 
   const pageRef = useRef(null);
@@ -26,7 +26,7 @@ function Articles({upDownVoteArticle}) {
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On Mount and when searchParams change
+  // On mount and when searchParams change.
   useEffect(() => {
     console.log("Mounting Articles component!");
     abortController.current = new AbortController();
@@ -83,8 +83,6 @@ function Articles({upDownVoteArticle}) {
     setIsLoading(true);
     currentReqCount.current++;
 
-    console.log("Fetching articles!");
-
     const url = constants.ARTICLES_API_URL;
 
     const axOptions = {
@@ -99,8 +97,6 @@ function Articles({upDownVoteArticle}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
-          console.log("Successfully fetched articles!");
-
           // Append articles
           setArticles((currArticles) => {return [...currArticles, ...data.articles]});
 
@@ -155,7 +151,7 @@ function Articles({upDownVoteArticle}) {
         <FilterBar />
         {articlesBody}
 
-        {(isLoading ? <Loading /> : null)}
+        {isLoading ? <Loading /> : null}
       </section>    
   );
 }

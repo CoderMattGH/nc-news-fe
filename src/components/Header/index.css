@@ -7,10 +7,6 @@
   align-items: center;
 }
 
-.header * {
-  /* border: 1px solid green; */
-}
-
 .title {
   padding: 5px;
   display: flex;

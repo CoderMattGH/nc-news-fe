@@ -10,7 +10,6 @@ function Register() {
 
   const navigate = useNavigate();
 
-  // On component mount
   useEffect(() => {
     console.log("Mounting Register component!");
 

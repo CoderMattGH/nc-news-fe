@@ -1,8 +1,6 @@
 .loading-section {
-  /* border: 1px solid red; */
   display: grid;
   justify-content: center;
-  /* padding: 10px; */
 }
 
 .loading-section--padding-normal {
@@ -26,8 +24,6 @@
 }
 
 .loading-icon {
-  /* border: 1px solid black; */
-  /* height: 100px; */
   animation-name: loading-animation;
   animation-duration: 1.4s;
   animation-direction: alternate-reverse;
@@ -37,12 +33,10 @@
 
 @keyframes loading-animation {
   from {
-    /* background-color: red; */
     transform: scale(1.0);
     opacity: 1.0;
   }
   to {
-    /* background-color: yellow; */
     transform: scale(0.85);
     opacity: 0.5;
   }
