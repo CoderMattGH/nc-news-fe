@@ -34,7 +34,6 @@
 }
 
 .comment-card__body {
-  grid-column: 1 / 4;
   font-size: 0.8rem;
 }
 
@@ -70,10 +69,14 @@
 
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .comment-delete-btn:hover {
-  cursor: pointer;
+  opacity: 0.7;
+}
+
+.comment-delete-btn:disabled {
   opacity: 0.7;
 }
 
