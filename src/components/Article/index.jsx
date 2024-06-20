@@ -10,7 +10,7 @@ import Loading from '../Loading';
 
 import './index.css';
 
-function Article() {
+function Article({upDownVoteArticle}) {
   let {article_id: articleId} = useParams();
   
   let [article, setArticle] = useState(null);
@@ -32,6 +32,52 @@ function Article() {
       abortController.current.abort();
     };
   }, []);
+
+  // TODO: Make DRY
+  const handleUpVoteClick = (event) => {
+    event.preventDefault();
+
+    const increment = 1;
+
+    // Optimistically render upvote
+    incDecArticleVotes(increment);
+
+    upDownVoteArticle(article.article_id, increment)
+        .then(() => {
+          // Success
+        })
+        .catch(() => {
+          incDecArticleVotes(increment * -1);
+        });
+  };
+
+  // TODO: Make DRY
+  const handleDownVoteClick = (event) => {
+    event.preventDefault();
+
+    const increment = -1;
+
+    // Optimistically render downvote
+    incDecArticleVotes(increment);    
+
+    upDownVoteArticle(article.article_id, increment)
+        .then(() => {
+          // Success
+        })
+        .catch(() => {
+          incDecArticleVotes(increment * -1);
+        });    
+  };
+
+  const incDecArticleVotes = (increment) => {
+    setArticle((currArtObj) => {
+      const newArtObj = {...currArtObj};
+
+      newArtObj.votes += increment;
+
+      return newArtObj;
+    });
+  };
 
   const fetchPopulateArticle = (articleId, abortController) => {
     console.log(`Fetching Article where article_id: ${articleId}`);
@@ -72,9 +118,15 @@ function Article() {
         <h2 className="article-content__title">{article.title}</h2>
         <div className="article-bar">
           <p className="button__votes button__element--gray">
-            <img className="button__vote_btn" src='/images/buttons/upvote.svg' />
+            <img 
+              className="button__vote_btn" onClick={handleUpVoteClick} 
+              src='/images/buttons/upvote.svg' 
+            />
             <span>{article.votes}</span>
-            <img className="button__vote_btn" src='/images/buttons/downvote.svg' />
+            <img 
+              className="button__vote_btn" onClick={handleDownVoteClick} 
+              src='/images/buttons/downvote.svg' 
+            />
           </p>
           <p className="button__element--gray button__element--grid">
             <span className="button__element--inner-label">Posted:</span>
