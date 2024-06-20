@@ -1,16 +1,21 @@
 import axios from 'axios';
-import {useState, useRef, useEffect} from 'react';
+import {useState, useRef, useEffect, useContext} from 'react';
 
 import constants from '../../../constants';
 
 import CommentCard from './CommentCard';
+import PostComment from './PostComment';
 import Loading from '../../Loading';
+
+import {UserContext} from '../../../contexts/User';
 
 import './index.css';
 
 function Comments({article}) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const {user} = useContext(UserContext);
 
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
@@ -77,7 +82,15 @@ function Comments({article}) {
       {(isLoading) ? 
           <Loading size={'small'} />
         :
-          commentsBody
+          <>
+            {(user) ?
+                <PostComment articleId={article.article_id} setComments={setComments} />
+              :
+                null
+            }
+
+            {commentsBody}
+          </>
       }
     </>
   );
