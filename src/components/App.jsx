@@ -1,3 +1,5 @@
+import DEBUG from '../constants/debug';
+
 import axios from 'axios';
 import {useContext, useEffect, useRef, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
@@ -46,7 +48,8 @@ function App() {
           return data.article;
         })
         .catch((err) => {
-          console.log(err);
+          if(DEBUG)
+            console.log(err);
 
           throw new Error("SERVER_ERROR");
         });
