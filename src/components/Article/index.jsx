@@ -33,29 +33,8 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
     };
   }, []);
 
-  // TODO: Make DRY
-  const handleUpVoteClick = (event) => {
+  const handleUpDownVoteClick = (event, increment) => {
     event.preventDefault();
-
-    const increment = 1;
-
-    // Optimistically render upvote
-    incDecArticleVotes(increment);
-
-    upDownVoteArticle(article.article_id, increment)
-        .then(() => {
-          // Success
-        })
-        .catch(() => {
-          incDecArticleVotes(increment * -1);
-        });
-  };
-
-  // TODO: Make DRY
-  const handleDownVoteClick = (event) => {
-    event.preventDefault();
-
-    const increment = -1;
 
     // Optimistically render downvote
     incDecArticleVotes(increment);    
@@ -119,12 +98,12 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
         <div className="article-bar">
           <p className="button__votes button__element--gray">
             <img 
-              className="button__vote_btn" onClick={handleUpVoteClick} 
+              className="button__vote_btn" onClick={(e) => handleUpDownVoteClick(e, 1)} 
               src='/images/buttons/upvote.svg' 
             />
             <span>{article.votes}</span>
             <img 
-              className="button__vote_btn" onClick={handleDownVoteClick} 
+              className="button__vote_btn" onClick={(e) => handleUpDownVoteClick(e, -1)} 
               src='/images/buttons/downvote.svg' 
             />
           </p>
