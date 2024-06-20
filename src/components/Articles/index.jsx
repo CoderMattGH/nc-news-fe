@@ -62,7 +62,6 @@ function Articles({upDownVoteArticle}) {
           const hasMoreArticles = ((pageRef.current * RESULT_LIMIT) < totalArticleCount.current);
 
           if (hasMoreArticles && entry.isIntersecting && !isLoading) {
-            console.log("MATTFetching articles!")
             pageRef.current = pageRef.current + 1;
             fetchAppendArticles(pageRef.current, abortController.current, searchParams.get("topic"),
                 searchParams.get("sort_by"), searchParams.get("order"));
@@ -81,12 +80,6 @@ function Articles({upDownVoteArticle}) {
   }, [articles]);
 
   const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order) => {
-    if (isLoading) {
-      console.log("Already fetching articles!  Returning!");
-
-      return; 
-    }
-    
     setIsLoading(true);
     currentReqCount.current++;
 
