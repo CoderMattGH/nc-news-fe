@@ -30,7 +30,6 @@
   padding: 3px 2px 0px 10px;
   text-align: left;
   overflow: hidden;
-  /* align-content: center; */
 }
 
 .article-card__desc-summary:first-letter {
@@ -38,7 +37,6 @@
 }
 
 .article-card__footer {
-  /* border: 1px solid red; */
   padding: 4px 6px;
   display: grid;
   grid-template-columns: auto 1fr 1fr auto;

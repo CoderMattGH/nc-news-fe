@@ -1,20 +1,14 @@
 .article-content {
-  /* border: 1px solid red; */
   text-align: left;
   display: grid;
   gap: 7px;
 }
 
 .article-bar {
-  /* border: 1px solid yellow; */
   display: grid;
   grid-template-columns: auto auto auto auto;
   gap: 14px;
   justify-content: left;
-}
-
-.article-bar * {
-  /* border: 1px solid black; */
 }
 
 .article-content__title {

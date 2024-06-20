@@ -8,7 +8,6 @@
   
   display: grid;
   grid-template-columns: 400px;
-  /* grid-template-rows: clamp(150px, 12vw, 200px); */
   justify-content: center;
   align-content: center;
 }
@@ -24,10 +23,6 @@
   justify-items: center;
   align-items: center;
   gap: 20px;
-}
-
-.error-overlay * {
-  /* border: 1px solid yellow; */
 }
 
 .error-overlay-message {

@@ -15,20 +15,17 @@ a {
 }
 
 #root {
-  /* border: 1px solid red; */
   width: 100%;
   text-align: center;
 }
 
 .main-body {
-  /* border: 1px solid green; */
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
 }
 
 .content-section {
-  /* border: 1px solid black; */
   margin: 10px 0px;
   padding: 0 5px;
   width: 100%;
@@ -41,7 +38,6 @@ a {
   gap: 15px;
 }
 
-/* TODO: Remove modifier*/
 .button__element--gray {
   border: 0;
   text-align: center;

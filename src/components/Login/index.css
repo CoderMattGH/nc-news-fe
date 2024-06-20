@@ -6,10 +6,6 @@
   justify-items: center;
 }
 
-.login * {
-  /* border: 1px solid yellow; */
-}
-
 .login-header {
   margin: 10px 0 5px 0;
 
@@ -36,7 +32,6 @@
 .login-input {
   border-radius: 30px;
   background-color: rgb(233, 233, 233);
-  /* border: 1px solid rgb(224, 224, 224); */
   border: 0;
   padding: 7px 15px;
 }
@@ -61,7 +56,6 @@
 }
 
 .login-error-msg {
-  /* color: rgb(194, 18, 18); */
   color: rgb(194, 18, 18);
   font-weight: bold;
   font-size: 0.8rem;

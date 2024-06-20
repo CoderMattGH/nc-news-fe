@@ -17,25 +17,20 @@ import constants from '../constants';
 import './App.css';
 
 function App() {
-  // If errOverlayMsg is null, then no error overlay is displayed.
-  // TODO: Put into Context
+  // If null do not display; if set display.
   const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
-  // Keep track of which articles the user has voted on.
-  // Example object: {article_id: 1, increment: -1}
+  // Keep track of which articles the user has voted on: eg. {article_id: 1, increment: -1}
   const userVotes = useRef([]);
 
   const {user} = useContext(UserContext);
 
   useEffect(() => {
-    console.log("Caching loading images!");
     new Image().src = '/images/loading_icon.svg';
   }, []);
 
   // On user context change, empty votes array.
   useEffect(() => {
-    console.log("Resetting user votes!");
-
     userVotes.current = [];
   }, [user]);
 
@@ -52,7 +47,7 @@ function App() {
     addToUserVotes(articleId, increment);
 
     // Try and upvote article
-    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
+    const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
     const reqBody = {inc_votes: increment};
 
@@ -70,7 +65,6 @@ function App() {
   };
 
   const addToUserVotes = (articleId, increment) => {
-    // Search current array for existing object
     for (const userObj of userVotes.current) {
       if (userObj.article_id === articleId) {
         userObj.increment += increment;
@@ -85,9 +79,7 @@ function App() {
   };
 
   const canUserVote = (articleId, increment) => {
-    for (let i = 0; i < userVotes.current.length; i++) {
-      const voteObj = userVotes.current[i];
-
+    for (const voteObj of userVotes.current) {
       if (voteObj.article_id === articleId) {
         if ((voteObj.increment + increment > 1) || 
             (voteObj.increment + increment < -1)) {
@@ -99,7 +91,7 @@ function App() {
     }
 
     return true;
-  };
+  };  
 
   return (
     <>
