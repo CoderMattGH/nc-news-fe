@@ -29,8 +29,6 @@ function CommentCard({comment, setComments}) {
 
     axios.delete(url)
         .then(() => {
-          console.log("Comment deleted successfully!");
-
           setComments((currCommentArr) => {
             return currCommentArr.filter(
                 (com) => {
@@ -39,7 +37,6 @@ function CommentCard({comment, setComments}) {
           });
         })
         .catch((err) => {
-          console.log("Unable to delete comment!");
           console.log(err);
           setErrOverlayMsg("Unable to delete comment!");
         })
