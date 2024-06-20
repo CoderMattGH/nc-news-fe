@@ -24,7 +24,7 @@ function Register() {
       <div className="register-section">
         <img className="register-image" src="images/logo_sad.svg"/>
         <p className="registration-closed-msg">
-          Registration is for NC News is currently closed :&#40;
+          Registration for NC News is currently closed :&#40;
         </p>
       </div>
     </section>
