@@ -21,11 +21,7 @@ function App() {
 
   const {user} = useContext(UserContext);
 
-  useEffect(() => {
-    new Image().src = '/images/loading_icon.svg';
-  }, []);
-
-  // On user context change, empty votes array.
+    // On user context change, empty votes array.
   useEffect(() => {
     userVotes.current = [];
   }, [user]);
