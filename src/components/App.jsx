@@ -1,8 +1,8 @@
 import DEBUG from '../constants/debug';
 
 import axios from 'axios';
-import {useContext, useEffect, useRef, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {useContext, useEffect, useRef} from 'react';
+import {Routes, Route, Navigate} from 'react-router-dom';
 
 import Header from './Header';
 import Articles from './Articles';
@@ -106,6 +106,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </>
