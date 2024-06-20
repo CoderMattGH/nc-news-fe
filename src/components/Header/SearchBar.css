@@ -16,3 +16,13 @@
   background-position-x: 15px;
   background-position-y: 8px;
 }
+
+@media (max-width: 600px) {
+  .search-bar__input { 
+    padding: 8px 12px 7px 39px;
+
+    background-size: 18px;
+    background-position-x: 13px;
+    background-position-y: 7px;
+  } 
+}

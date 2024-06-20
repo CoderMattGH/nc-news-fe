@@ -21,3 +21,17 @@
 .title__img {
   height: 40px;
 }
+
+@media (max-width: 757px) {
+  .title {
+    gap: 5px;
+  }
+
+  .title__img {
+    display: none;
+  } 
+
+  .title__logo {
+    height: 35px;
+  }
+}

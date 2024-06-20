@@ -19,3 +19,9 @@
 .menu-bar-button__username {
   color: rgb(83, 83, 83);  
 }
+
+@media (max-width: 600px) {
+  .nav__entry {
+    padding: 0 5px;
+  }
+}
