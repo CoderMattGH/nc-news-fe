@@ -2,7 +2,15 @@
   /* border: 1px solid red; */
   display: grid;
   justify-content: center;
+  /* padding: 10px; */
+}
+
+.loading-section--padding-normal {
   padding: 10px;
+}
+
+.loading-section--padding-tiny {
+  padding: 4px;
 }
 
 .loading-icon--small {
@@ -11,6 +19,10 @@
 
 .loading-icon--medium {
   height: 100px;
+}
+
+.loading-icon--tiny {
+  height: 40px;
 }
 
 .loading-icon {

@@ -10,7 +10,7 @@ import Loading from '../Loading';
 
 import './index.css';
 
-function Article({upDownVoteArticle}) {
+function Article({upDownVoteArticle, setErrOverlayMsg}) {
   let {article_id: articleId} = useParams();
   
   let [article, setArticle] = useState(null);
@@ -146,7 +146,7 @@ function Article({upDownVoteArticle}) {
         <p className="article-content__body">{article.body}</p>
 
         <section className="article-comments-section">
-          <Comments article={article} />
+          <Comments article={article} setErrOverlayMsg={setErrOverlayMsg} />
         </section>
       </>
     );

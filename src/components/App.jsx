@@ -18,6 +18,7 @@ import './App.css';
 
 function App() {
   // If errOverlayMsg is null, then no error overlay is displayed.
+  // TODO: Put into Context
   const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
   // Keep track of which articles the user has voted on.
@@ -115,7 +116,9 @@ function App() {
           />
           <Route 
             path="/articles/:article_id" 
-            element={<Article upDownVoteArticle={upDownVoteArticle} />}
+            element={
+              <Article upDownVoteArticle={upDownVoteArticle} setErrOverlayMsg={setErrOverlayMsg}/>
+            }
           />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />

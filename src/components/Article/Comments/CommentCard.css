@@ -34,7 +34,6 @@
 }
 
 .comment-card__body {
-  grid-column: 1 / 4;
   font-size: 0.8rem;
 }
 
@@ -47,4 +46,40 @@
   grid-template-columns: max-content max-content max-content;
   align-items: center;
   gap: 10px;
+}
+
+.comment-card__vote_count {
+  padding: 2px 0 0 0;
+}
+
+.comment-card-footer {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: left;
+  gap: 25px;
+}
+
+.comment-delete-btn {
+  background-color: white;
+  border: 0;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 20px;
+
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.comment-delete-btn:hover {
+  opacity: 0.7;
+}
+
+.comment-delete-btn:disabled {
+  opacity: 0.7;
+}
+
+.comment-icon {
+  height: 80%;
 }

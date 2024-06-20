@@ -1,11 +1,20 @@
 import './Loading.css';
 
 function Loading({size = 'medium'}) {
+  let sectionClassName = 'loading-section ';
   let classStr = 'loading-icon ';
-  if (size === 'small')
+  if (size === 'small') {
+    sectionClassName += 'loading-section--padding-normal';
     classStr += 'loading-icon--small';
-  else
+  }
+  else if (size === 'tiny') {
+    sectionClassName += 'loading-section--padding-tiny';
+    classStr += 'loading-icon--tiny'
+  }
+  else {
+    sectionClassName += 'loading-section--padding-normal';
     classStr += 'loading-icon--medium';
+  }
 
   return (
     <section className="loading-section">

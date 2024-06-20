@@ -11,7 +11,7 @@ import {UserContext} from '../../../contexts/User';
 
 import './index.css';
 
-function Comments({article}) {
+function Comments({article, setErrOverlayMsg}) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,7 +71,10 @@ function Comments({article}) {
   } else {
     commentsBody = comments.map((comment) => {
       return (
-        <CommentCard comment={comment} key={comment.comment_id}/>
+        <CommentCard 
+          comment={comment} key={comment.comment_id} setComments={setComments} 
+          setErrOverlayMsg={setErrOverlayMsg}
+        />
       );
     });
   }
