@@ -94,6 +94,14 @@ a {
   text-align: center;
 }
 
+.err-msg-default {
+  font-weight: bold;
+  padding: 20px;
+  font-size: 1.0rem;
+  text-align: center;
+  color: rgb(194, 18, 18);
+}
+
 .default-button {
   border: 0;
   text-align: center;
