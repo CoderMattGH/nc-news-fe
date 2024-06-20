@@ -58,7 +58,6 @@ function PostComment({articleId, setComments}) {
           setDisplaySuccMsg(true);
         })
         .catch((err) => {
-          console.log("ERROR: Unable to post comment!");
           console.log(err);
 
           setErrMsg("Failed to post comment!");
