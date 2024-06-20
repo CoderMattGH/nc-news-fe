@@ -88,6 +88,7 @@ a {
 
 .button__vote_btn:hover {
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .no-articles-found {
