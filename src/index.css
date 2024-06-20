@@ -8,3 +8,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media (max-width: 600px) {
+  :root {
+    font-size: 14px;
+  }  
+}
