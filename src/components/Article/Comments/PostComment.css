@@ -1,0 +1,31 @@
+.post-comment-section {
+  margin: 8px 0 15px 0;
+}
+
+.post-comment-form {
+  display: grid;
+  gap: 12px;
+}
+
+.post-comment-textarea {
+  background-color: white;
+  border-color:rgb(88, 88, 88);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  resize: none;
+  height: 80px;
+}
+
+.comment-msg {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.comment-msg--error {
+  color: rgb(194, 18, 18);
+}
+
+.comment-msg--success {
+}

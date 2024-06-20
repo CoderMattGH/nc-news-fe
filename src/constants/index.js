@@ -7,5 +7,7 @@ const USER_BASE_API_URL = `${BASE_API_URL}/users/`;
 
 const ERR_MSG_NOT_LOGGED_IN = 'You must be logged in to perform this action :(';
 
+const COMMENT_MAX_LENGTH = 1000;
+
 export default {BASE_API_URL, ARTICLES_API_URL, ARTICLE_BASE_API_URL, USER_BASE_API_URL,
-    ERR_MSG_NOT_LOGGED_IN};
+    USERS_API_URL, ERR_MSG_NOT_LOGGED_IN, COMMENT_MAX_LENGTH};
