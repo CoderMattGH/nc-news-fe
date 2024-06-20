@@ -8,7 +8,6 @@ import Article from './Article';
 import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
-import ErrorOverlay from './ErrorOverlay';
 
 import {UserContext} from '../contexts/User';
 
@@ -17,9 +16,6 @@ import constants from '../constants';
 import './App.css';
 
 function App() {
-  // If null do not display; if set display.
-  const [errOverlayMsg, setErrOverlayMsg] = useState(null);
-
   // Keep track of which articles the user has voted on: eg. {article_id: 1, increment: -1}
   const userVotes = useRef([]);
 
@@ -36,8 +32,6 @@ function App() {
 
   const upDownVoteArticle = async (articleId, increment) => {
     if (!user) {
-      setErrOverlayMsg(constants.ERR_MSG_NOT_LOGGED_IN);
-
       throw new Error("USER_NOT_LOGGED_IN");
     }
 
@@ -56,9 +50,7 @@ function App() {
           return data.article;
         })
         .catch((err) => {
-          console.log("ERROR: Could not upvote article!");
           console.log(err);
-          setErrOverlayMsg("Unable to register article vote!");
 
           throw new Error("SERVER_ERROR");
         });
@@ -109,7 +101,7 @@ function App() {
           <Route 
             path="/articles/:article_id" 
             element={
-              <Article upDownVoteArticle={upDownVoteArticle} setErrOverlayMsg={setErrOverlayMsg}/>
+              <Article upDownVoteArticle={upDownVoteArticle} />
             }
           />
           <Route path="/login" element={<Login />} />
@@ -117,12 +109,6 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </main>
-
-      {errOverlayMsg ? 
-          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
-        : 
-          null
-      }
     </>
   )
 }

@@ -1,12 +1,19 @@
+import {useState} from 'react';
 import dateParsing from '../../util-functions/date-parsing';
+
+import ErrorOverlay from '../ErrorOverlay';
+
+import constants from '../../constants';
 
 import './ArticleCard.css';
 
 function ArticleCard({article, upDownVoteArticle, setArticles}) {
+  const [errOverlayMsg, setErrOverlayMsg] = useState(null);
+
   const handleUpDownVoteClick = (event, increment) => {
     event.preventDefault();
 
-    // Optimistically decrement vote count
+    // Optimistically decrement vote count.
     incDecArticleVotes(article.article_id, increment);
 
     upDownVoteArticle(article.article_id, increment)
@@ -14,7 +21,19 @@ function ArticleCard({article, upDownVoteArticle, setArticles}) {
           console.log("Vote successful!");
         })
         .catch((err) => {
-          // Decrement vote back to original value
+          console.log(err);
+
+          let errMsg;
+          if (err.message === "USER_NOT_LOGGED_IN")
+            errMsg = constants.ERR_MSG_NOT_LOGGED_IN;
+          else if (err.message === "USER_ALREADY_VOTED")
+            errMsg = null;
+          else 
+            errMsg = "Unable to register article vote!";
+
+          setErrOverlayMsg(errMsg);
+
+          // Decrement vote back to original value.
           incDecArticleVotes(article.article_id, increment * -1);
         });
   };  
@@ -69,6 +88,12 @@ function ArticleCard({article, upDownVoteArticle, setArticles}) {
           {article.comment_count} comments
         </p>
       </div>
+
+      {errOverlayMsg ? 
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
+        : 
+          null
+      }
     </>
   );
 }

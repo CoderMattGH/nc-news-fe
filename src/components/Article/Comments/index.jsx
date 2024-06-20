@@ -11,7 +11,7 @@ import {UserContext} from '../../../contexts/User';
 
 import './index.css';
 
-function Comments({article, setErrOverlayMsg}) {
+function Comments({article}) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +20,6 @@ function Comments({article, setErrOverlayMsg}) {
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On component mount
   useEffect(() => {
     console.log("Mounting Comments Component!");
 
@@ -73,7 +72,6 @@ function Comments({article, setErrOverlayMsg}) {
       return (
         <CommentCard 
           comment={comment} key={comment.comment_id} setComments={setComments} 
-          setErrOverlayMsg={setErrOverlayMsg}
         />
       );
     });
