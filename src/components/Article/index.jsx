@@ -16,6 +16,7 @@ function Article({upDownVoteArticle}) {
   
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
   
   const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
@@ -27,6 +28,7 @@ function Article({upDownVoteArticle}) {
     abortController.current = new AbortController();    
 
     setArticle(null);
+    setErrMsg(null);
 
     fetchPopulateArticle(articleId, abortController.current);
 
@@ -78,6 +80,7 @@ function Article({upDownVoteArticle}) {
 
     currentReqCount.current++;
     setIsLoading(true);
+    setErrMsg(null);
 
     const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
@@ -88,12 +91,17 @@ function Article({upDownVoteArticle}) {
     axios.get(url, axOptions)
         .then(({data}) => {
           console.log("Successfully fetched article!");
+          setErrMsg(null);
 
           setArticle(data.article);
         })
         .catch((err) => {
           console.log(err);
-          console.log("ERROR: Unable to fetch article!");
+          
+          if (err.code && err.code === "ERR_NETWORK")
+            setErrMsg("A network error occurred!");
+          else 
+            setErrMsg("An unknown error occurred!");
         })
         .finally(() => {
           currentReqCount.current--;
@@ -104,9 +112,13 @@ function Article({upDownVoteArticle}) {
   };
 
   let articleBody;
-  if (!article) {
+  if (errMsg) {
+    articleBody = (<p className="err-msg-default">{errMsg}</p>);
+  }
+  else if (!article) {
     articleBody = (<p className="no-articles-found">No article found!</p>);
-  } else {
+  } 
+  else {
     articleBody = (
       <>
         <h2 className="article-content__title">{article.title}</h2>
