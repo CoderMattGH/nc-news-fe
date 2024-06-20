@@ -1,59 +1,31 @@
-import {Link} from 'react-router-dom';
-import {useContext} from 'react';
-
 import dateParsing from '../../util-functions/date-parsing';
-
-import {UserContext} from '../../contexts/User';
 
 import './ArticleCard.css';
 
 function ArticleCard({article, upDownVoteArticle, setArticles}) {
-  const {user} = useContext(UserContext);
-
-  const handleUpVoteClick = (event) => {
-    event.preventDefault();
-
-    // Optimistically increment vote count
-    incDecArticleVotes(article.article_id, true);
-
-    upDownVoteArticle(article.article_id, 1)
-        .then(() => {
-          console.log("Upvote successful!");
-        })
-        .catch((err) => {
-          // Decrement vote back to original value
-          incDecArticleVotes(article.article_id, false);
-        });
-  };
-
-  const handleDownVoteClick = (event) => {
+  const handleUpDownVoteClick = (event, increment) => {
     event.preventDefault();
 
     // Optimistically decrement vote count
-    incDecArticleVotes(article.article_id, false);
+    incDecArticleVotes(article.article_id, increment);
 
-    upDownVoteArticle(article.article_id, -1)
+    upDownVoteArticle(article.article_id, increment)
         .then(() => {
-          console.log("Down vote successful!");
+          console.log("Vote successful!");
         })
         .catch((err) => {
           // Decrement vote back to original value
-          incDecArticleVotes(article.article_id, true);
+          incDecArticleVotes(article.article_id, increment * -1);
         });
-  };
+  };  
 
-  const incDecArticleVotes = (articleId, incDecBool) => {
-    // Optimistically render upvote/downvote
+  const incDecArticleVotes = (articleId, increment) => {
     setArticles((currArticles) => {
       const newArticlesArr = currArticles.map((a) => {
         const tempArt = {...a};
 
-        if(tempArt.article_id === articleId) {
-          if (incDecBool)
-            tempArt.votes++;
-          else
-            tempArt.votes--;
-        }
+        if(tempArt.article_id === articleId)
+          tempArt.votes += increment;
 
         return tempArt;
       });
@@ -80,13 +52,13 @@ function ArticleCard({article, upDownVoteArticle, setArticles}) {
       <div className="article-card__footer">
         <p className="button__votes button__element--gray" onClick={preventLinkRedirect} >
           <img
-            className="button__vote_btn" onClick={handleUpVoteClick} alt="upvote" 
+            className="button__vote_btn" onClick={(e) => {handleUpDownVoteClick(e, 1)}} alt="upvote" 
             src="/images/buttons/upvote.svg" 
           />
           <span>{article.votes}</span>
           <img
-            className="button__vote_btn" onClick={handleDownVoteClick} alt="downvote" 
-            src="/images/buttons/downvote.svg" 
+            className="button__vote_btn" onClick={(e) => {handleUpDownVoteClick(e, -1)}} 
+            alt="downvote" src="/images/buttons/downvote.svg" 
           />
         </p>
         <p className="button__category button__element--gray">{article.topic}</p>
