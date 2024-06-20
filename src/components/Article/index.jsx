@@ -109,6 +109,14 @@ function Article({upDownVoteArticle}) {
           
           if (err.code && err.code === "ERR_NETWORK")
             setErrMsg("A network error occurred!");
+          else if (err.response && err.response.status) {
+            if (err.response.status === 404)
+              setErrMsg("Article not found!");
+            else if (err.response.status === 400)
+              setErrMsg("An unknown error occurred!");
+            else
+              setErrMsg("An unknown error occurred!");  
+          }
           else 
             setErrMsg("An unknown error occurred!");
         })
@@ -122,7 +130,12 @@ function Article({upDownVoteArticle}) {
 
   let articleBody;
   if (errMsg) {
-    articleBody = (<p className="err-msg-default">{errMsg}</p>);
+    articleBody = (
+      <div className="err-msg-default-container">
+        <img className="err-msg-default-img" src="/images/logo_sad.svg" />
+        <p className="err-msg-default">{errMsg}</p>
+      </div>
+    );
   }
   else if (!article) {
     articleBody = (<p className="no-articles-found">No article found!</p>);
