@@ -134,3 +134,9 @@ a {
 .default-button:hover {
   background-color:rgb(240, 240, 240);
 }
+
+@media (max-width: 600px) {
+  .default-button {
+    padding: 7px 17px;
+  }
+}
