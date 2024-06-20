@@ -32,7 +32,7 @@ function MenuBar() {
     <nav className="nav">
       {(user) ?
           <li className="nav__entry">
-            <button className="menu-bar-button menu-bar-button__logout" onClick={clickLogout}>
+            <button className="default-button menu-bar-button__logout" onClick={clickLogout}>
               Logout:
               <span className="menu-bar-button__username">{user.username}</span>
             </button>
@@ -40,10 +40,10 @@ function MenuBar() {
         :
           <>
             <li className="nav__entry">
-              <button className="menu-bar-button" onClick={clickLogin}>Log in</button>
+              <button className="default-button" onClick={clickLogin}>Log in</button>
             </li>
             <li className="nav__entry">
-              <button className="menu-bar-button" onClick={clickRegister}>Register</button>
+              <button className="default-button" onClick={clickRegister}>Register</button>
             </li>
           </>
       }

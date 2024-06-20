@@ -5,4 +5,7 @@ const ARTICLE_BASE_API_URL = `${BASE_API_URL}/articles/`;
 const USERS_API_URL = `${BASE_API_URL}/users`;
 const USER_BASE_API_URL = `${BASE_API_URL}/users/`;
 
-export default {BASE_API_URL, ARTICLES_API_URL, ARTICLE_BASE_API_URL, USER_BASE_API_URL};
+const ERR_MSG_NOT_LOGGED_IN = 'You must be logged in to perform this action :(';
+
+export default {BASE_API_URL, ARTICLES_API_URL, ARTICLE_BASE_API_URL, USER_BASE_API_URL,
+    ERR_MSG_NOT_LOGGED_IN};

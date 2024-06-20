@@ -10,7 +10,7 @@ import FilterBar from './FilterBar';
 import ArticleCard from './ArticleCard';
 import Loading from '../Loading';
 
-function Articles() {
+function Articles({upDownVoteArticle}) {
   const RESULT_LIMIT = 10;
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -62,6 +62,7 @@ function Articles() {
           const hasMoreArticles = ((pageRef.current * RESULT_LIMIT) < totalArticleCount.current);
 
           if (hasMoreArticles && entry.isIntersecting && !isLoading) {
+            console.log("MATTFetching articles!")
             pageRef.current = pageRef.current + 1;
             fetchAppendArticles(pageRef.current, abortController.current, searchParams.get("topic"),
                 searchParams.get("sort_by"), searchParams.get("order"));
@@ -137,7 +138,7 @@ function Articles() {
           <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
                key={article.article_id}>
             <div className="article-card last-card" ref={lastCardRef}>
-              <ArticleCard article={article} />
+              <ArticleCard article={article} upDownVoteArticle={upDownVoteArticle} />
             </div>
           </Link>
         );
@@ -146,7 +147,9 @@ function Articles() {
           <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
               key={article.article_id}>
             <div className="article-card">
-              <ArticleCard article={article} />
+              <ArticleCard 
+                article={article} upDownVoteArticle={upDownVoteArticle} setArticles={setArticles}
+              />
             </div>
           </Link>
         );      
