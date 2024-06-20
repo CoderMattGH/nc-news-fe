@@ -1,3 +1,5 @@
+import DEBUG from '../../../constants/debug';
+
 import axios from 'axios';
 import {useContext, useState} from 'react';
 
@@ -29,8 +31,6 @@ function CommentCard({comment, setComments}) {
 
     axios.delete(url)
         .then(() => {
-          console.log("Comment deleted successfully!");
-
           setComments((currCommentArr) => {
             return currCommentArr.filter(
                 (com) => {
@@ -39,8 +39,9 @@ function CommentCard({comment, setComments}) {
           });
         })
         .catch((err) => {
-          console.log("Unable to delete comment!");
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
+            
           setErrOverlayMsg("Unable to delete comment!");
         })
         .finally(() => {

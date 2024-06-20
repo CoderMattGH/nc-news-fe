@@ -94,6 +94,28 @@ a {
   text-align: center;
 }
 
+.err-msg-default {
+  font-weight: bold;
+  padding: 20px;
+  font-size: 1.0rem;
+  text-align: center;
+  color: rgb(194, 18, 18);
+}
+
+.err-msg-default-container {
+  margin-top: 10px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+
+  grid-template-columns: auto;
+  grid-template-rows: 180px auto;
+}
+
+.err-msg-default-img {
+  height: 100%;
+}
+
 .default-button {
   border: 0;
   text-align: center;

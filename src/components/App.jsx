@@ -1,6 +1,8 @@
+import DEBUG from '../constants/debug';
+
 import axios from 'axios';
-import {useContext, useEffect, useRef, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {useContext, useEffect, useRef} from 'react';
+import {Routes, Route, Navigate} from 'react-router-dom';
 
 import Header from './Header';
 import Articles from './Articles';
@@ -21,11 +23,7 @@ function App() {
 
   const {user} = useContext(UserContext);
 
-  useEffect(() => {
-    new Image().src = '/images/loading_icon.svg';
-  }, []);
-
-  // On user context change, empty votes array.
+    // On user context change, empty votes array.
   useEffect(() => {
     userVotes.current = [];
   }, [user]);
@@ -50,7 +48,8 @@ function App() {
           return data.article;
         })
         .catch((err) => {
-          console.log(err);
+          if(DEBUG)
+            console.log(err);
 
           throw new Error("SERVER_ERROR");
         });
@@ -107,6 +106,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </>

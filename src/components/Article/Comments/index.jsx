@@ -1,3 +1,5 @@
+import DEBUG from '../../../constants/debug';
+
 import axios from 'axios';
 import {useState, useRef, useEffect, useContext} from 'react';
 
@@ -14,6 +16,7 @@ import './index.css';
 function Comments({article}) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
 
   const {user} = useContext(UserContext);
 
@@ -21,7 +24,8 @@ function Comments({article}) {
   const currentReqCount = useRef(0);
 
   useEffect(() => {
-    console.log("Mounting Comments Component!");
+    if (DEBUG)
+      console.log("Mounting Comments component!");
 
     setComments([]);
 
@@ -35,9 +39,11 @@ function Comments({article}) {
   }, []);
 
   const fetchPopulateComments = (articleId, abortController) => {
-    console.log("Fetching comments!");
+    if (DEBUG)
+      console.log("Fetching comments!");
 
     currentReqCount.current++;
+    setErrMsg(null);
     setIsLoading(true);
 
     const url = `${constants.ARTICLES_API_URL}/${articleId}/comments`;
@@ -48,13 +54,17 @@ function Comments({article}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
-          console.log("Successfully fetched comments!");
+          if (DEBUG)
+            console.log("Successfully fetched comments!");
 
+          setErrMsg(null);
           setComments(data.comments)
         })
         .catch((err) => {
-          console.log(err);
-          console.log("ERROR: Unable to fetch comments!");
+          if (DEBUG)
+            console.log(err);
+
+          setErrMsg("Unable to fetch comments!");
         })
         .finally(() => {
           currentReqCount.current--;
@@ -65,7 +75,10 @@ function Comments({article}) {
   };
 
   let commentsBody;
-  if (!article.comment_count) {
+  if (errMsg) {
+    commentsBody = (<p className="err-msg-default">{errMsg}</p>);
+  }
+  else if (!article.comment_count) {
     commentsBody = (<p className="no-comments-msg">This article does not contain any comments</p>);
   } else {
     commentsBody = comments.map((comment) => {

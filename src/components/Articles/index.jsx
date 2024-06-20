@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import axios from 'axios';
 import {useState,useEffect, useRef} from 'react';
 import {useSearchParams, Link} from 'react-router-dom';
@@ -17,6 +19,7 @@ function Articles({upDownVoteArticle}) {
 
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
 
   // Reference to last ArticleCard for infinite scrolling.
   const lastCardRef = useRef(null);
@@ -26,9 +29,10 @@ function Articles({upDownVoteArticle}) {
   const abortController = useRef(null);
   const currentReqCount = useRef(0);
 
-  // On mount and when searchParams change.
   useEffect(() => {
-    console.log("Mounting Articles component!");
+    if (DEBUG)
+      console.log("Mounting Articles component!");
+
     abortController.current = new AbortController();
 
     pageRef.current = 1;
@@ -38,7 +42,8 @@ function Articles({upDownVoteArticle}) {
     const sortByParam = searchParams.get("sort_by");
     const orderParam = searchParams.get("order");
 
-    console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
+    if (DEBUG)
+      console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
 
     fetchAppendArticles(pageRef.current, abortController.current, topicParam, 
         sortByParam, orderParam);
@@ -80,6 +85,7 @@ function Articles({upDownVoteArticle}) {
   }, [articles]);
 
   const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order) => {
+    setErrMsg(null);
     setIsLoading(true);
     currentReqCount.current++;
 
@@ -97,6 +103,8 @@ function Articles({upDownVoteArticle}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
+          setErrMsg(null);
+
           // Append articles
           setArticles((currArticles) => {return [...currArticles, ...data.articles]});
 
@@ -105,8 +113,19 @@ function Articles({upDownVoteArticle}) {
             totalArticleCount.current = data.articles[0].total_count;
         })
         .catch((err) => {
-          console.log(err);
-          console.log("ERROR: Unable to fetch articles!");
+          if (DEBUG)
+            console.log(err);
+
+          if (err.code && err.code === "ERR_NETWORK")
+            setErrMsg("A network error occurred!");
+          else if (err.response && err.response.status) {
+            if (err.response.status === 404) 
+              setErrMsg("Resouce does not exist!");
+            else
+              setErrMsg("An unknown error occurred!");
+          }
+          else 
+            setErrMsg("An unknown error occurred!");
         })
         .finally(() => {
           currentReqCount.current--;
@@ -116,9 +135,19 @@ function Articles({upDownVoteArticle}) {
   };
 
   let articlesBody;
-  if (!isLoading && !articles.length) {
-    articlesBody = <p className="no-articles-found">No articles found!</p>;
-  } else {
+
+  if (!isLoading && errMsg) {
+    articlesBody = (
+      <div className="err-msg-default-container">
+        <img className="err-msg-default-img" src="/images/logo_sad.svg" />
+        <p className="err-msg-default">{errMsg}</p>
+      </div>
+    );
+  }
+  else if (!isLoading && !articles.length) {
+    articlesBody = (<p className="no-articles-found">No articles found!</p>);
+  } 
+  else {
     articlesBody = articles.map((article, i, arr) => {
       const isLastCard = (arr.length - 1 === i);
 

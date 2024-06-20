@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import axios from 'axios';
 import {useEffect, useRef, useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -26,7 +28,8 @@ function Login() {
 
   // On component mount.
   useEffect(() => {
-    console.log("Mounting Login component!");
+    if (DEBUG)
+      console.log("Mounting Login component!");
 
     if (user) {
       navigate("/");
@@ -94,8 +97,8 @@ function Login() {
           credentialsOK = true;
         })
         .catch((err) => {
-          // TODO: Handle errors properly
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           // If error is from server
           if (err.response) {
@@ -112,7 +115,6 @@ function Login() {
           toggleFormInputs(true);
 
           if (credentialsOK) {
-            console.log("Forwarding to home page!");
             navigate("/");
           }
         });

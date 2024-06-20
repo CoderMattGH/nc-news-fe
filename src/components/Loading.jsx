@@ -18,9 +18,9 @@ function Loading({size = 'medium'}) {
 
   return (
     <section className="loading-section">
-      <img alt="Loading image" 
-          className={classStr}
-          src="/images/loading_icon.svg" />
+      <img 
+        alt="Loading image" className={classStr} src="/images/loading_icon.svg" 
+      />
     </section>
   );
 }

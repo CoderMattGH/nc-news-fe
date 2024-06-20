@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {useState, useRef, useEffect} from 'react';
@@ -16,6 +18,7 @@ function Article({upDownVoteArticle}) {
   
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
   
   const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
@@ -23,10 +26,13 @@ function Article({upDownVoteArticle}) {
   const currentReqCount = useRef(0);
 
   useEffect(() => {
-    console.log("Mounting Article component!");
+    if (DEBUG)
+      console.log("Mounting Article component!");
+
     abortController.current = new AbortController();    
 
     setArticle(null);
+    setErrMsg(null);
 
     fetchPopulateArticle(articleId, abortController.current);
 
@@ -46,7 +52,8 @@ function Article({upDownVoteArticle}) {
           // Success
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           let errMsg;
           if (err.message === "USER_NOT_LOGGED_IN")
@@ -74,10 +81,12 @@ function Article({upDownVoteArticle}) {
   };
 
   const fetchPopulateArticle = (articleId, abortController) => {
-    console.log(`Fetching Article where article_id: ${articleId}`);
+    if (DEBUG)
+      console.log(`Fetching Article where article_id: ${articleId}`);
 
     currentReqCount.current++;
     setIsLoading(true);
+    setErrMsg(null);
 
     const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
@@ -87,13 +96,29 @@ function Article({upDownVoteArticle}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
-          console.log("Successfully fetched article!");
+          if (DEBUG)
+            console.log("Successfully fetched article!");
+
+          setErrMsg(null);
 
           setArticle(data.article);
         })
         .catch((err) => {
-          console.log(err);
-          console.log("ERROR: Unable to fetch article!");
+          if (DEBUG)
+            console.log(err);
+          
+          if (err.code && err.code === "ERR_NETWORK")
+            setErrMsg("A network error occurred!");
+          else if (err.response && err.response.status) {
+            if (err.response.status === 404)
+              setErrMsg("Article not found!");
+            else if (err.response.status === 400)
+              setErrMsg("An unknown error occurred!");
+            else
+              setErrMsg("An unknown error occurred!");  
+          }
+          else 
+            setErrMsg("An unknown error occurred!");
         })
         .finally(() => {
           currentReqCount.current--;
@@ -104,9 +129,18 @@ function Article({upDownVoteArticle}) {
   };
 
   let articleBody;
-  if (!article) {
+  if (errMsg) {
+    articleBody = (
+      <div className="err-msg-default-container">
+        <img className="err-msg-default-img" src="/images/logo_sad.svg" />
+        <p className="err-msg-default">{errMsg}</p>
+      </div>
+    );
+  }
+  else if (!article) {
     articleBody = (<p className="no-articles-found">No article found!</p>);
-  } else {
+  } 
+  else {
     articleBody = (
       <>
         <h2 className="article-content__title">{article.title}</h2>
