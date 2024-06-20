@@ -7,6 +7,7 @@ import Loading from '../Loading';
 import {UserContext} from '../../contexts/User';
 
 import constants from '../../constants';
+import usernameValidator from '../../validators/username-validator';
 
 import './index.css';
 
@@ -62,27 +63,19 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate username
-    if (usernameInput.trim() === "") {
-      setErrMsg("Username cannot be empty!");
+    const username = usernameInput.trim();
+
+    const usernameValObj = usernameValidator(username);
+    if (!usernameValObj.valid) {
+      setErrMsg(usernameValObj.msg);
 
       return;
     }
-
-    const usernamePattern = /^[0-9a-zA-Z_]+$/;
-    if (!usernamePattern.test(usernameInput)) {
-      setErrMsg("Username contains invalid characters!");
-
-      return;
-    }
-
-    // Validation complete!
 
     toggleFormInputs(false);
     setErrMsg(null);
     setIsLoading(true);
 
-    const username = usernameInput.trim();
     checkLogin(username, abortController.current);
   };
 
