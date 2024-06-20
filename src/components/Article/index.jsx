@@ -64,7 +64,7 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
     currentReqCount.current++;
     setIsLoading(true);
 
-    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}`;
+    const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
     const axOptions = {
       signal: abortController.signal
@@ -136,9 +136,7 @@ function Article({upDownVoteArticle, setErrOverlayMsg}) {
       {isLoading ? 
           <Loading />
         :
-          <div className="article-content">
-            {articleBody}
-          </div>
+          <div className="article-content">{articleBody}</div>
       }
     </section>
   );

@@ -41,7 +41,7 @@ function Comments({article, setErrOverlayMsg}) {
     currentReqCount.current++;
     setIsLoading(true);
 
-    const url = `${constants.ARTICLE_BASE_API_URL}${articleId}/comments`;
+    const url = `${constants.ARTICLES_API_URL}/${articleId}/comments`;
 
     const axOptions = {
       signal: abortController.signal
@@ -82,11 +82,11 @@ function Comments({article, setErrOverlayMsg}) {
   return (
     <>
       <h3 className="article-comments__comments_title">Comments ({article.comment_count})</h3>
-      {(isLoading) ? 
+      {isLoading ?  
           <Loading size={'small'} />
         :
           <>
-            {(user) ?
+            {user ?
                 <PostComment articleId={article.article_id} setComments={setComments} />
               :
                 null

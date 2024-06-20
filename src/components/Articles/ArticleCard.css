@@ -11,12 +11,6 @@
   opacity: 0.9;
 }
 
-.article-card-full-link:hover .article-card__title, 
-.article-card-full-link:hover .article-card__desc-summary
-{
-  /* color: rgb(48, 48, 48); */
-}
-
 .article-card__title {
   font-size: 1.0rem;
   text-align: left;
@@ -50,8 +44,4 @@
   grid-template-columns: auto 1fr 1fr auto;
   align-items: center;
   gap: 10px;
-}
-
-.article-card__footer * {
-  /* border: 1px solid yellow; */
 }
