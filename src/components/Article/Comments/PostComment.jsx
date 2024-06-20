@@ -1,3 +1,5 @@
+import DEBUG from '../../../constants/debug';
+
 import axios from 'axios';
 import {useState, useEffect, useContext} from 'react';
 
@@ -20,7 +22,8 @@ function PostComment({articleId, setComments}) {
   const {user} = useContext(UserContext);
 
   useEffect(() => {
-    console.log("Mounting PostComment component!");
+    if (DEBUG)
+      console.log("Mounting PostComment component!");
   }, []);
 
   const handleSubmit = (event) => {
@@ -58,7 +61,8 @@ function PostComment({articleId, setComments}) {
           setDisplaySuccMsg(true);
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           setErrMsg("Failed to post comment!");
         })

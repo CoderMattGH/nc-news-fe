@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import {useState} from 'react';
 import dateParsing from '../../util-functions/date-parsing';
 
@@ -18,10 +20,12 @@ function ArticleCard({article, upDownVoteArticle, setArticles}) {
 
     upDownVoteArticle(article.article_id, increment)
         .then(() => {
-          console.log("Vote successful!");
+          if (DEBUG)
+            console.log("Vote successful!");
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           let errMsg;
           if (err.message === "USER_NOT_LOGGED_IN")

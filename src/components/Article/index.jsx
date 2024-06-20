@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {useState, useRef, useEffect} from 'react';
@@ -24,7 +26,9 @@ function Article({upDownVoteArticle}) {
   const currentReqCount = useRef(0);
 
   useEffect(() => {
-    console.log("Mounting Article component!");
+    if (DEBUG)
+      console.log("Mounting Article component!");
+
     abortController.current = new AbortController();    
 
     setArticle(null);
@@ -48,7 +52,8 @@ function Article({upDownVoteArticle}) {
           // Success
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           let errMsg;
           if (err.message === "USER_NOT_LOGGED_IN")
@@ -76,7 +81,8 @@ function Article({upDownVoteArticle}) {
   };
 
   const fetchPopulateArticle = (articleId, abortController) => {
-    console.log(`Fetching Article where article_id: ${articleId}`);
+    if (DEBUG)
+      console.log(`Fetching Article where article_id: ${articleId}`);
 
     currentReqCount.current++;
     setIsLoading(true);
@@ -90,13 +96,16 @@ function Article({upDownVoteArticle}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
-          console.log("Successfully fetched article!");
+          if (DEBUG)
+            console.log("Successfully fetched article!");
+
           setErrMsg(null);
 
           setArticle(data.article);
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
           
           if (err.code && err.code === "ERR_NETWORK")
             setErrMsg("A network error occurred!");

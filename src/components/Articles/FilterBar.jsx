@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import {useEffect, useState}  from 'react';
 import {useSearchParams} from 'react-router-dom';
 
@@ -122,7 +124,9 @@ function FilterBar() {
 
   const handleOrderClick = (event) => {
     const order = event.target.name;
-    console.log("Clicked Order: ", order);
+    
+    if (DEBUG)
+      console.log("Clicked Order: ", order);
 
     if (order === "asc")
       setOrderBtnState("Ascending");

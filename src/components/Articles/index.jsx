@@ -1,3 +1,5 @@
+import DEBUG from '../../constants/debug';
+
 import axios from 'axios';
 import {useState,useEffect, useRef} from 'react';
 import {useSearchParams, Link} from 'react-router-dom';
@@ -28,7 +30,9 @@ function Articles({upDownVoteArticle}) {
   const currentReqCount = useRef(0);
 
   useEffect(() => {
-    console.log("Mounting Articles component!");
+    if (DEBUG)
+      console.log("Mounting Articles component!");
+
     abortController.current = new AbortController();
 
     pageRef.current = 1;
@@ -38,7 +42,8 @@ function Articles({upDownVoteArticle}) {
     const sortByParam = searchParams.get("sort_by");
     const orderParam = searchParams.get("order");
 
-    console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
+    if (DEBUG)
+      console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
 
     fetchAppendArticles(pageRef.current, abortController.current, topicParam, 
         sortByParam, orderParam);
@@ -108,7 +113,8 @@ function Articles({upDownVoteArticle}) {
             totalArticleCount.current = data.articles[0].total_count;
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           if (err.code && err.code === "ERR_NETWORK")
             setErrMsg("A network error occurred!");

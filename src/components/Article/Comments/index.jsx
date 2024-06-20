@@ -1,3 +1,5 @@
+import DEBUG from '../../../constants/debug';
+
 import axios from 'axios';
 import {useState, useRef, useEffect, useContext} from 'react';
 
@@ -22,7 +24,8 @@ function Comments({article}) {
   const currentReqCount = useRef(0);
 
   useEffect(() => {
-    console.log("Mounting Comments component!");
+    if (DEBUG)
+      console.log("Mounting Comments component!");
 
     setComments([]);
 
@@ -36,7 +39,8 @@ function Comments({article}) {
   }, []);
 
   const fetchPopulateComments = (articleId, abortController) => {
-    console.log("Fetching comments!");
+    if (DEBUG)
+      console.log("Fetching comments!");
 
     currentReqCount.current++;
     setErrMsg(null);
@@ -50,13 +54,15 @@ function Comments({article}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
-          console.log("Successfully fetched comments!");
+          if (DEBUG)
+            console.log("Successfully fetched comments!");
 
           setErrMsg(null);
           setComments(data.comments)
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
 
           setErrMsg("Unable to fetch comments!");
         })

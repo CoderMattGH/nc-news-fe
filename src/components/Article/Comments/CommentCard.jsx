@@ -1,3 +1,5 @@
+import DEBUG from '../../../constants/debug';
+
 import axios from 'axios';
 import {useContext, useState} from 'react';
 
@@ -37,7 +39,9 @@ function CommentCard({comment, setComments}) {
           });
         })
         .catch((err) => {
-          console.log(err);
+          if (DEBUG)
+            console.log(err);
+            
           setErrOverlayMsg("Unable to delete comment!");
         })
         .finally(() => {
