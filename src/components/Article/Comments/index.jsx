@@ -8,6 +8,7 @@ import constants from '../../../constants';
 import CommentCard from './CommentCard';
 import PostComment from './PostComment';
 import Loading from '../../Loading';
+import ErrorOverlay from '../../ErrorOverlay';
 
 import {UserContext} from '../../../contexts/User';
 
@@ -17,6 +18,7 @@ function Comments({article}) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
+  const [errOverlayMsg, setErrOverlayMsg] = useState(null);
 
   const {user} = useContext(UserContext);
 
@@ -74,6 +76,13 @@ function Comments({article}) {
         });
   };
 
+  const handleCommentVote = () => {
+    if (DEBUG)
+      console.log("Handling comment vote!");
+    
+    setErrOverlayMsg("Comment voting is coming soon!");
+  };
+
   let commentsBody;
   if (errMsg) {
     commentsBody = (<p className="err-msg-default">{errMsg}</p>);
@@ -85,6 +94,7 @@ function Comments({article}) {
       return (
         <CommentCard 
           comment={comment} key={comment.comment_id} setComments={setComments} 
+          handleCommentVote={handleCommentVote}
         />
       );
     });
@@ -105,6 +115,12 @@ function Comments({article}) {
 
             {commentsBody}
           </>
+      }
+
+      {errOverlayMsg ? 
+          (<ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} />)
+        :
+          null
       }
     </>
   );

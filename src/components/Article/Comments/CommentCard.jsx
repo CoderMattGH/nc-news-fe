@@ -14,7 +14,7 @@ import dateParsing from '../../../util-functions/date-parsing';
 
 import './CommentCard.css';
 
-function CommentCard({comment, setComments}) {
+function CommentCard({comment, setComments, handleCommentVote}) {
   const {user} = useContext(UserContext);
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +53,7 @@ function CommentCard({comment, setComments}) {
   return (
     <div className="comment-card">
       <div className="comment-card__header">
-        <img className="comment-card__avatar" src="/images/avatar/user.svg"/>
+        <img className="comment-card__avatar" src="/images/avatar/user.svg" />
         <p className="comment-card__author">{comment.author}</p>
         <p className="comment-card__divider comment-card__element--gray">•</p>
         <p className="comment-card__element--gray">
@@ -65,9 +65,11 @@ function CommentCard({comment, setComments}) {
 
       <div className="comment-card-footer">
         <p className="comment-card__votes">
-          <img className="button__vote_btn" src='/images/buttons/upvote.svg' />
+          <img className="button__vote_btn" src='/images/buttons/upvote.svg' 
+              onClick={() => handleCommentVote()} />
           <span className="comment-card__vote_count">{comment.votes}</span>
-          <img className="button__vote_btn" src='/images/buttons/downvote.svg' />
+          <img className="button__vote_btn" src='/images/buttons/downvote.svg' 
+              onClick={() => handleCommentVote()} />
         </p>
         {(user && (user.username === comment.author)) ?
           <button className="comment-delete-btn" disabled={delBtnDisabled} 
@@ -86,7 +88,7 @@ function CommentCard({comment, setComments}) {
       }
 
       {errOverlayMsg ? 
-          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} /> 
         : 
           null
       }      

@@ -52,8 +52,10 @@ function SearchBar() {
   return (
     <div className="search-bar">
       <form onSubmit={handleSubmit}>
-        <input className="search-bar__input" onChange={handleSearchInput} value={searchInput} 
-            type="text" placeholder="Search" />
+        <input 
+          className="search-bar__input" onChange={handleSearchInput} value={searchInput} 
+          type="text" placeholder="Search" 
+        />
       </form>
     </div>
   );
