@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 400px;
   justify-content: center;
+  justify-items: center;
   align-content: center;
 }
 
@@ -32,4 +33,19 @@
 
 .error-overlay-img {
   height: 100%;
+}
+
+@media (max-width: 520px) {
+  .error-overlay {
+    /* max-width: 280px; */
+    grid-template-columns: auto;
+  }
+
+  .error-overlay-img {
+    height: 80%;
+  }
+
+  .fullscreen-shadow-overlay {
+    grid-template-columns: 250px;
+  }
 }
