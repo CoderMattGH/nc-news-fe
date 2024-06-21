@@ -76,10 +76,16 @@
   }
 }
 
+@media (max-width: 600px) {
+  .filter-bar {
+    margin-bottom: 7px;
+  }
+}
+
 @media (max-width: 405px) {
   .filter-bar {
-    /* gap: 8px; */
     grid-template-columns: auto auto;
+    margin-bottom: 3px;
   }
 
 

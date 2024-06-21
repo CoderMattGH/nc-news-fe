@@ -76,7 +76,8 @@
   }
 
   .article-card__title {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    padding-bottom: 3px;
     grid-row: 1;
     grid-column: 1;
 
@@ -84,5 +85,7 @@
     word-wrap: normal;
     overflow: auto;
     white-space:initial;
+
+    text-align: center;
   }
 }
