@@ -142,4 +142,8 @@ a {
   .default-button {
     padding: 7px 17px;
   }
+
+  .err-msg-default-container {
+    grid-template-rows: 130px auto;
+  }
 }
