@@ -1,4 +1,3 @@
-// TODO: If less than 24 hours
 function convertUnixDate(unixDate) {
   let date;
   try {
