@@ -41,12 +41,13 @@ function Articles({upDownVoteArticle}) {
     const topicParam = searchParams.get("topic");
     const sortByParam = searchParams.get("sort_by");
     const orderParam = searchParams.get("order");
+    const searchParam = searchParams.get("search");
 
     if (DEBUG)
-      console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}`);
+      console.log(`Params: ${topicParam}, ${sortByParam}, ${orderParam}, ${searchParam}`);
 
     fetchAppendArticles(pageRef.current, abortController.current, topicParam, 
-        sortByParam, orderParam);
+        sortByParam, orderParam, searchParam);
 
     return () => {
       abortController.current.abort();
@@ -69,7 +70,7 @@ function Articles({upDownVoteArticle}) {
           if (hasMoreArticles && entry.isIntersecting && !isLoading) {
             pageRef.current = pageRef.current + 1;
             fetchAppendArticles(pageRef.current, abortController.current, searchParams.get("topic"),
-                searchParams.get("sort_by"), searchParams.get("order"));
+                searchParams.get("sort_by"), searchParams.get("order"), searchParams.get("search"));
           }
         });
       }, 
@@ -84,7 +85,7 @@ function Articles({upDownVoteArticle}) {
     };
   }, [articles]);
 
-  const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order) => {
+  const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order, search) => {
     setErrMsg(null);
     setIsLoading(true);
     currentReqCount.current++;
@@ -97,7 +98,8 @@ function Articles({upDownVoteArticle}) {
         p: page,
         topic: topic,
         sort_by: sortBy,
-        order: order
+        order: order,
+        search: search
       }
     };
 
