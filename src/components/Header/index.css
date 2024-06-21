@@ -35,3 +35,9 @@
     height: 35px;
   }
 }
+
+@media (max-width: 600px) {
+  .title__logo {
+    height: 30px;
+  }
+}
