@@ -2,13 +2,27 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
-  height: 160px;
 
   /* Only visible on hover */
   border-radius: 20px;
   padding: 3px 5px;
+
+  /* height: 160px; */
 }
 
 .article-card-full-link:hover .article-card {
   background-color: rgba(236, 236, 236, 0.363);
+}
+
+@media (max-width: 758px) {
+  .article-card {
+    grid-template-rows: auto 1fr auto auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .article-card {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+  }
 }
