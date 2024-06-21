@@ -73,7 +73,8 @@ function ArticleCard({article, upDownVoteArticle, setArticles}) {
         }
       </p>
       <div className="article-card__footer">
-        <p className="button__votes button__element--gray" onClick={preventLinkRedirect} >
+        <p className="button__votes article-card__votes-btn button__element--gray" 
+            onClick={preventLinkRedirect} >
           <img
             className="button__vote_btn" onClick={(e) => {handleUpDownVoteClick(e, 1)}} alt="upvote" 
             src="/images/buttons/upvote.svg" 
