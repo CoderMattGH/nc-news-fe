@@ -26,6 +26,9 @@ function FilterBar() {
 
   // Set state to reflect searchParams
   useEffect(() => {
+    if (DEBUG)
+      console.log("Mounting FilterBar!");
+
     parseSearchParamsToState(searchParams);
   }, [searchParams]);
 
@@ -33,6 +36,8 @@ function FilterBar() {
     const topicParam = searchParams.get('topic');
     if (topicParam !== null)
       setCategoryBtnState(searchParams.get('topic').toLowerCase());
+    else
+      setCategoryBtnState("All");
 
     const sortByParam = searchParams.get('sort_by');
     if (sortByParam === 'comment_count')
@@ -41,10 +46,14 @@ function FilterBar() {
       setSortBtnState("Date");
     else if (sortByParam !== null)
       setSortBtnState(sortByParam.toLowerCase());
+    else
+      setSortBtnState("Date");
     
     const orderParam = searchParams.get('order');
     if (orderParam === 'asc')
-      setOrderBtnState("Ascending");  
+      setOrderBtnState("Ascending");
+    else
+      setOrderBtnState("Descending");
   };
 
   const handleClickOutside = (event) => {
