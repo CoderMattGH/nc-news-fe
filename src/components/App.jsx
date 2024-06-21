@@ -29,9 +29,8 @@ function App() {
   }, [user]);
 
   const upDownVoteArticle = async (articleId, increment) => {
-    if (!user) {
+    if (!user)
       throw new Error("USER_NOT_LOGGED_IN");
-    }
 
     if (!canUserVote(articleId, increment))
       throw new Error("USER_ALREADY_VOTED");
@@ -99,9 +98,7 @@ function App() {
           />
           <Route 
             path="/articles/:article_id" 
-            element={
-              <Article upDownVoteArticle={upDownVoteArticle} />
-            }
+            element={<Article upDownVoteArticle={upDownVoteArticle} />}
           />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
