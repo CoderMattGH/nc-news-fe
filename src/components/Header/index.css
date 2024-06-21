@@ -2,7 +2,7 @@
   border-bottom: 1px solid rgb(233, 233, 233);
   padding: 2px 5px 5px 5px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto auto;
   grid-template-rows: auto;
   align-items: center;
   gap: 5px;
