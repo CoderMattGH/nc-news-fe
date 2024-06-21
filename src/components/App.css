@@ -73,9 +73,11 @@ a {
 
 .button__votes {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto auto;
   gap: 8px;
   align-items: center;
+  justify-items: center;
+  justify-content: center;
 }
 
 .button__vote_btn {
