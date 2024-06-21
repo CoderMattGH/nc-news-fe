@@ -3,11 +3,12 @@
   display: flex;
   justify-content: center;
   font-size: 0.9rem;
+  gap: 10px;
 }
 
 .nav__entry {
   text-transform: uppercase;
-  padding: 0 10px;
+  /* padding: 0 2px; */
 }
 
 .menu-bar-button__logout {
@@ -18,4 +19,7 @@
 
 .menu-bar-button__username {
   color: rgb(83, 83, 83);  
+}
+
+@media (max-width: 600px) {
 }

@@ -7,4 +7,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  min-width: 300px;
+}
+
+@media (max-width: 600px) {
+  :root {
+    font-size: 14px;
+  }  
 }

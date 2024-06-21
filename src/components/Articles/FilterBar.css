@@ -1,6 +1,6 @@
 .filter-bar {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
   justify-content: start;
   gap: 20px;
   padding: 0px 5px;
@@ -34,7 +34,6 @@
   margin-top: 3px;
   min-width: 120px;
   gap: 7px;
-  
   display: grid;
   transition: opacity 0.5s;
 }
@@ -50,6 +49,7 @@
   padding: 7px 20px;
   border-radius: 20px;
   cursor: pointer;  
+  font-size: 0.8rem;
 }
 
 .dropdown-menu__link:hover {
@@ -60,4 +60,36 @@
   padding-right: 7px;
   font-size: 0.86rem;
   color: rgb(85, 85, 85);
+}
+
+@media (max-width: 600px) {
+  .filter-bar {
+    gap: 10px;
+  }
+
+  .dropdown__btn {
+    padding: 8px 15px;
+  }
+
+  .filter-bar__span--order {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .filter-bar {
+    margin-bottom: 7px;
+  }
+}
+
+@media (max-width: 405px) {
+  .filter-bar {
+    grid-template-columns: auto auto;
+    margin-bottom: 3px;
+  }
+
+
+  .filtar-bar__container--sort-by {
+    display: none;
+  }
 }

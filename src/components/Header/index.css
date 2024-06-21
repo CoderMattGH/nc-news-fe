@@ -2,9 +2,10 @@
   border-bottom: 1px solid rgb(233, 233, 233);
   padding: 2px 5px 5px 5px;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: auto;
   align-items: center;
+  gap: 5px;
 }
 
 .title {
@@ -20,4 +21,35 @@
 
 .title__img {
   height: 40px;
+}
+
+@media (max-width: 757px) {
+  .title {
+    gap: 8px;
+  }
+
+  .title__img {
+    height: 35px;
+  } 
+
+  .title__logo {
+    height: 35px;
+  }
+}
+
+@media (max-width: 680px) {
+  .title {
+    gap: 0;
+    padding-right: 0;
+  }
+
+  .title__img {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .title__logo {
+    height: 30px;
+  }
 }

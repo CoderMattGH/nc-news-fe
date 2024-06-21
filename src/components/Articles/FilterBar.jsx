@@ -205,9 +205,9 @@ function FilterBar() {
         }
       </div>  
 
-      <div className="filter-bar__container">
+      <div className="filter-bar__container filtar-bar__container--sort-by">
         <button className="dropdown__btn" onClick={() => toggleOrderMenuVis()}>
-          <span className="filter-bar__span">Order:</span>
+          <span className="filter-bar__span filter-bar__span--order">Order:</span>
           <span className="filter-bar__btn-state">{orderBtnState}</span>
         </button>
 

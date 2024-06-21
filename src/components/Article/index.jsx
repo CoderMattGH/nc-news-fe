@@ -156,16 +156,16 @@ function Article({upDownVoteArticle}) {
               src='/images/buttons/downvote.svg' 
             />
           </p>
-          <p className="button__element--gray button__element--grid">
+          <p className="button__element--gray article-bar-button--grid">
             <span className="button__element--inner-label">Posted:</span>
             <span>{dateParser.convertUnixDate(article.created_at)}</span>
           </p>
           <p className=
-              "button__element--gray button__element--grid button__category">
+              "button__element--gray article-bar-button--grid button__category">
             <span className="button__element--inner-label">Category:</span>
             <span>{article.topic}</span>
           </p>
-          <p className="button__element--gray button__element--grid">
+          <p className="button__element--gray article-bar-button--grid">
             <span className="button__element--inner-label">Author:</span>
             <span>{article.author}</span>
           </p>
