@@ -49,6 +49,7 @@ a {
   text-overflow: ellipsis;
   overflow: hidden;
   text-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .button__element--grid {
