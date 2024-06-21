@@ -4,7 +4,7 @@
 
 **NC News** is a social news aggregation, web content rating and discussion website. NC News has articles which are divided into topics, and each article has user-curated ratings from upvotes and downvotes using the API. Users can also add comments about an article.
 
-You can use the application at: https://nc-news-codermatt.netlify.app/
+You can use the application by visiting: https://nc-news-codermatt.netlify.app/
 
 ## NC News API
 
