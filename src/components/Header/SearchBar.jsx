@@ -1,7 +1,7 @@
 import DEBUG from '../../constants/debug';
 
 import {useState} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import {useSearchParams, useNavigate} from 'react-router-dom';
 
 import './SearchBar.css';
 
@@ -11,6 +11,8 @@ function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   const handleSearchInput = (event) => {
     if (event.target.value.length > MAX_SEARCH_LEN)
@@ -29,10 +31,15 @@ function SearchBar() {
 
     // Add search string to searchParams
     setSearchParams((currSearchParams) => {
-      currSearchParams.set('search', searchString);
+        if (searchString !== "")
+          currSearchParams.set('search', searchString);
+        else
+          currSearchParams.delete('search');
 
-      return currSearchParams;
-    });
+        return currSearchParams;
+      });
+
+    navigate(`/articles?${searchParams.toString()}`);
   };
 
   const validateSearchString = (searchStr) => {
