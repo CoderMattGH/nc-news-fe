@@ -23,7 +23,7 @@ function App() {
 
   const {user} = useContext(UserContext);
 
-    // On user context change, empty votes array.
+  // On user context change, empty votes array.
   useEffect(() => {
     userVotes.current = [];
   }, [user]);
@@ -37,7 +37,6 @@ function App() {
 
     addToUserVotes(articleId, increment);
 
-    // Try and upvote article
     const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
     const reqBody = {inc_votes: increment};
@@ -47,7 +46,7 @@ function App() {
           return data.article;
         })
         .catch((err) => {
-          if(DEBUG)
+          if (DEBUG)
             console.log(err);
 
           throw new Error("SERVER_ERROR");
@@ -93,7 +92,7 @@ function App() {
             element={<Articles upDownVoteArticle={upDownVoteArticle} />} 
           />
           <Route 
-            path={"/articles"}
+            path="/articles"
             element={<Articles upDownVoteArticle={upDownVoteArticle} />} 
           />
           <Route 

@@ -107,8 +107,9 @@ function Article({upDownVoteArticle}) {
           if (DEBUG)
             console.log(err);
           
-          if (err.code && err.code === "ERR_NETWORK")
+          if (err.code && err.code === "ERR_NETWORK") {
             setErrMsg("A network error occurred!");
+          }
           else if (err.response && err.response.status) {
             if (err.response.status === 404)
               setErrMsg("Article not found!");
@@ -117,8 +118,9 @@ function Article({upDownVoteArticle}) {
             else
               setErrMsg("An unknown error occurred!");  
           }
-          else 
+          else {
             setErrMsg("An unknown error occurred!");
+          }
         })
         .finally(() => {
           currentReqCount.current--;
@@ -191,7 +193,7 @@ function Article({upDownVoteArticle}) {
       </section>
 
       {errOverlayMsg ? 
-          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg}/> 
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} /> 
         : 
           null
       }      

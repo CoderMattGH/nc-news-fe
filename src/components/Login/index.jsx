@@ -127,7 +127,7 @@ function Login() {
         <h2 className="login-title">Log in to NC News</h2>
       </div>
       
-      {errMsg ? (<p className="login-error-msg">Error: {errMsg}</p>) : null}
+      {errMsg ? <p className="login-error-msg">Error: {errMsg}</p> : null}
 
       <form className="login-box" onSubmit={handleSubmit}>
         <label className="login-input__label" htmlFor="login-box__username">Username:</label>
@@ -147,7 +147,7 @@ function Login() {
         </button>
       </form>
 
-      {isLoading ? (<Loading size="small" />) : null}
+      {isLoading ? <Loading size="tiny" /> : null}
     </section>
   );
 }

@@ -9,17 +9,17 @@ function Loading({size = 'medium'}) {
   }
   else if (size === 'tiny') {
     sectionClassName += 'loading-section--padding-tiny';
-    classStr += 'loading-icon--tiny'
-  }
+    classStr += 'loading-icon--tiny';
+  } 
   else {
     sectionClassName += 'loading-section--padding-normal';
     classStr += 'loading-icon--medium';
   }
 
   return (
-    <section className="loading-section">
+    <section className={sectionClassName}>
       <img 
-        alt="Loading image" className={classStr} src="/images/loading_icon.svg" 
+        alt="Loading" className={classStr} src="/images/loading_icon.svg" 
       />
     </section>
   );

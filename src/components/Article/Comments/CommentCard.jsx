@@ -65,15 +65,21 @@ function CommentCard({comment, setComments, handleCommentVote}) {
 
       <div className="comment-card-footer">
         <p className="comment-card__votes">
-          <img className="button__vote_btn" src='/images/buttons/upvote.svg' 
-              onClick={() => handleCommentVote()} />
+          <img 
+            className="button__vote_btn" src='/images/buttons/upvote.svg' 
+            onClick={() => handleCommentVote()} 
+          />
           <span className="comment-card__vote_count">{comment.votes}</span>
-          <img className="button__vote_btn" src='/images/buttons/downvote.svg' 
-              onClick={() => handleCommentVote()} />
+          <img 
+            className="button__vote_btn" src='/images/buttons/downvote.svg' 
+            onClick={() => handleCommentVote()} 
+          />
         </p>
         {(user && (user.username === comment.author)) ?
-          <button className="comment-delete-btn" disabled={delBtnDisabled} 
-              onClick={handleDeleteCommentClick}>
+          <button 
+            className="comment-delete-btn" disabled={delBtnDisabled} 
+            onClick={handleDeleteCommentClick}
+          >
             <img alt="Delete Comment" className="comment-icon" src="/images/buttons/delete.svg" />
           </button>
             :
@@ -81,14 +87,14 @@ function CommentCard({comment, setComments, handleCommentVote}) {
         }
       </div>
 
-      {(isLoading) ?
+      {isLoading ?
           <Loading size="tiny" />
         :
           null
       }
 
       {errOverlayMsg ? 
-          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} /> 
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} />
         : 
           null
       }      

@@ -31,7 +31,7 @@ function Articles({upDownVoteArticle}) {
 
   useEffect(() => {
     if (DEBUG)
-      console.log("In Articles useEffect() [searchParams].");
+      console.log("In Articles useEffect() [searchParams]");
 
     abortController.current = new AbortController();
 
@@ -54,10 +54,9 @@ function Articles({upDownVoteArticle}) {
     };
   }, [searchParams]);
 
-  // Articles State
   useEffect(() => {
     if (DEBUG)
-      console.log("In Article useEffect() [articles].");
+      console.log("In Article useEffect() [articles]");
 
     // Add IntersectionObserver for infinite scrolling
     let interOptions = {
@@ -90,7 +89,7 @@ function Articles({upDownVoteArticle}) {
 
   const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order, search) => {
     if (DEBUG)
-      console.log("In fetchAppendArticles() in Articles.");
+      console.log("Fetching articles!");
 
     setErrMsg(null);
     setIsLoading(true);
@@ -119,7 +118,7 @@ function Articles({upDownVoteArticle}) {
           // Append articles
           setArticles((currArticles) => {return [...currArticles, ...data.articles]});
 
-          // Append totalArticleCount
+          // Set totalArticleCount
           if (data.articles.length)
             totalArticleCount.current = data.articles[0].total_count;
         })
@@ -127,16 +126,18 @@ function Articles({upDownVoteArticle}) {
           if (DEBUG)
             console.log(err);
 
-          if (err.code && err.code === "ERR_NETWORK")
+          if (err.code && err.code === "ERR_NETWORK") {
             setErrMsg("A network error occurred!");
+          }
           else if (err.response && err.response.status) {
             if (err.response.status === 404) 
               setErrMsg("Resouce does not exist!");
             else
               setErrMsg("An unknown error occurred!");
           }
-          else 
+          else {
             setErrMsg("An unknown error occurred!");
+          }
         })
         .finally(() => {
           currentReqCount.current--;
@@ -160,29 +161,29 @@ function Articles({upDownVoteArticle}) {
   } 
   else {
     articlesBody = articles.map((article, i, arr) => {
+      const articleCard = 
+          <ArticleCard 
+            article={article} upDownVoteArticle={upDownVoteArticle} setArticles={setArticles}
+          />;
+
       const isLastCard = (arr.length - 1 === i);
 
-      if (isLastCard) {
-        return (
-          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
-               key={article.article_id}>
-            <div className="article-card last-card" ref={lastCardRef}>
-              <ArticleCard article={article} upDownVoteArticle={upDownVoteArticle} />
-            </div>
-          </Link>
-        );
-      } else {
-        return (
-          <Link className="article-card-full-link" to={`/articles/${article.article_id}`}
-              key={article.article_id}>
-            <div className="article-card">
-              <ArticleCard 
-                article={article} upDownVoteArticle={upDownVoteArticle} setArticles={setArticles}
-              />
-            </div>
-          </Link>
-        );      
-      }
+      return (
+        <Link 
+          className="article-card-full-link" to={`/articles/${article.article_id}`}
+          key={article.article_id}
+        > 
+          {isLastCard ? 
+              <div className="article-card last-card" ref={lastCardRef}>
+                {articleCard}
+              </div>
+            :
+              <div className="article-card" >
+                {articleCard}
+              </div>                
+          }
+        </Link>
+      );      
     });
   }
 
@@ -191,7 +192,11 @@ function Articles({upDownVoteArticle}) {
         <FilterBar />
         {articlesBody}
 
-        {isLoading ? <Loading /> : null}
+        {isLoading ? 
+            <Loading />
+          : 
+            null
+        }
       </section>    
   );
 }
