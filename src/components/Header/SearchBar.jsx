@@ -1,14 +1,12 @@
 import DEBUG from '../../constants/debug';
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useSearchParams, useNavigate} from 'react-router-dom';
 
 import './SearchBar.css';
 
-function SearchBar() {
+function SearchBar({searchInput, setSearchInput}) {
   const MAX_SEARCH_LEN = 200;
-
-  const [searchInput, setSearchInput] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
 
