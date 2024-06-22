@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+html {
+  background-color: rgb(254, 254, 254);
+}
+
+button {
+  color: black;
+}
+
 img {
   display: block;
 }
