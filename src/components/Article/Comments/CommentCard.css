@@ -20,7 +20,9 @@
 .comment-card__author {
   font-weight: bold;
 }
+
 .comment-card__body {
+  padding: 5px 0 0px 0;
   font-size: 0.8rem;
 }
 
@@ -69,4 +71,10 @@
 
 .comment-icon {
   height: 80%;
+}
+
+@media (max-width: 600px) {
+  .comment-card__body {
+    font-size: 0.9rem;
+  }  
 }
