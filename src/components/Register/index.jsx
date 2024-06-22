@@ -21,7 +21,7 @@ function Register() {
   return (
     <section className="content-section">
       <div className="register-section">
-        <img className="register-image" src="images/logo_sad.svg"/>
+        <img className="register-image" src="images/logo_sad.svg" />
         <p className="registration-closed-msg">
           Registration for NC News is currently closed :&#40;
         </p>

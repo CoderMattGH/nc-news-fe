@@ -19,9 +19,6 @@ function SearchBar({searchInput, setSearchInput}) {
   };
 
   const handleSubmit = (event) => {
-    if (DEBUG)
-      console.log("Submitting Search form!");
-
     event.preventDefault();
     
     const searchString = searchInput.trim();

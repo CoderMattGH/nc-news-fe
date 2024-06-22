@@ -37,7 +37,6 @@ function App() {
 
     addToUserVotes(articleId, increment);
 
-    // Try and upvote article
     const url = `${constants.ARTICLES_API_URL}/${articleId}`;
 
     const reqBody = {inc_votes: increment};

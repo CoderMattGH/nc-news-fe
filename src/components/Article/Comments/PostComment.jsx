@@ -74,7 +74,7 @@ function PostComment({articleId, setComments}) {
 
   const appendComment = (comment) => {
     setComments((currComments) => {
-      // Append article_id
+      // Append article_id if missing
       if (!comment.article_id)
         comment.article_id = articleId;
 
@@ -117,7 +117,6 @@ function PostComment({articleId, setComments}) {
           onChange={handleCommentBoxInput} value={commentText} disabled={formDisabled}
         />
         <button className="default-button" disabled={formDisabled}>Post Comment</button>
-
       </form>
     </div>
   );

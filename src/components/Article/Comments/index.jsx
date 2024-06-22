@@ -77,9 +77,6 @@ function Comments({article}) {
   };
 
   const handleCommentVote = () => {
-    if (DEBUG)
-      console.log("Handling comment vote!");
-    
     setErrOverlayMsg("Comment voting is coming soon!");
   };
 
@@ -118,7 +115,7 @@ function Comments({article}) {
       }
 
       {errOverlayMsg ? 
-          (<ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} />)
+          <ErrorOverlay errOverlayMsg={errOverlayMsg} setErrOverlayMsg={setErrOverlayMsg} />
         :
           null
       }
