@@ -147,7 +147,7 @@ function Login() {
         </button>
       </form>
 
-      {isLoading ? (<Loading size="small" />) : null}
+      {isLoading ? (<Loading size="tiny" />) : null}
     </section>
   );
 }
