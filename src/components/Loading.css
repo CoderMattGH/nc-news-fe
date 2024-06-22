@@ -1,6 +1,7 @@
 .loading-section {
   display: grid;
   justify-content: center;
+  grid-template-rows: 1fr;
 }
 
 .loading-section--padding-normal {
@@ -12,11 +13,13 @@
 }
 
 .loading-icon--small {
+  margin: 12px 0 12px 0;
   height: 70px;
 }
 
 .loading-icon--medium {
-  height: 100px;
+  margin: 20px 0 20px 0;
+  height: 160px;
 }
 
 .loading-icon--tiny {
