@@ -31,7 +31,7 @@ function Articles({upDownVoteArticle}) {
 
   useEffect(() => {
     if (DEBUG)
-      console.log("Mounting Articles component!");
+      console.log("In Articles useEffect() [searchParams].");
 
     abortController.current = new AbortController();
 
@@ -56,6 +56,9 @@ function Articles({upDownVoteArticle}) {
 
   // Articles State
   useEffect(() => {
+    if (DEBUG)
+      console.log("In Article useEffect() [articles].");
+
     // Add IntersectionObserver for infinite scrolling
     let interOptions = {
       rootMargin: "0px",
@@ -86,6 +89,9 @@ function Articles({upDownVoteArticle}) {
   }, [articles]);
 
   const fetchAppendArticles = (page = 1, abortController, topic, sortBy, order, search) => {
+    if (DEBUG)
+      console.log("In fetchAppendArticles() in Articles.");
+
     setErrMsg(null);
     setIsLoading(true);
     currentReqCount.current++;
@@ -105,6 +111,9 @@ function Articles({upDownVoteArticle}) {
 
     axios.get(url, axOptions)
         .then(({data}) => {
+          if (DEBUG)
+            console.log("Articles fetched successfully!");
+
           setErrMsg(null);
 
           // Append articles

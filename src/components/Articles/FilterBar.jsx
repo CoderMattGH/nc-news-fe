@@ -27,7 +27,7 @@ function FilterBar() {
   // Set state to reflect searchParams
   useEffect(() => {
     if (DEBUG)
-      console.log("Mounting FilterBar!");
+      console.log("In FilterBar useEffect() [searchParams]!");
 
     parseSearchParamsToState(searchParams);
   }, [searchParams]);
@@ -133,9 +133,6 @@ function FilterBar() {
 
   const handleOrderClick = (event) => {
     const order = event.target.name;
-    
-    if (DEBUG)
-      console.log("Clicked Order: ", order);
 
     if (order === "asc")
       setOrderBtnState("Ascending");
