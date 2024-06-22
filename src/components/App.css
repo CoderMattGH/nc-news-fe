@@ -6,6 +6,8 @@
 
 html {
   background-color: rgb(254, 254, 254);
+  /* Prevent iPhone from font scaling in landscape mode */
+  -webkit-text-size-adjust: 100%;
 }
 
 button {
