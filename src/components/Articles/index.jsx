@@ -54,7 +54,6 @@ function Articles({upDownVoteArticle}) {
     };
   }, [searchParams]);
 
-  // Articles State
   useEffect(() => {
     if (DEBUG)
       console.log("In Article useEffect() [articles].");
@@ -119,7 +118,7 @@ function Articles({upDownVoteArticle}) {
           // Append articles
           setArticles((currArticles) => {return [...currArticles, ...data.articles]});
 
-          // Append totalArticleCount
+          // Set totalArticleCount
           if (data.articles.length)
             totalArticleCount.current = data.articles[0].total_count;
         })
