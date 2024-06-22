@@ -95,7 +95,7 @@ function PostComment({articleId, setComments}) {
     <div className="post-comment-section">
       <form onSubmit={handleSubmit} className="post-comment-form">
         {isLoading ?
-            <Loading size="small"/>
+            <Loading size="tiny"/>
           :
             null
         }
