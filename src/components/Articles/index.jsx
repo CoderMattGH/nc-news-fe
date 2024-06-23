@@ -192,8 +192,13 @@ function Articles({upDownVoteArticle}) {
         <FilterBar />
         {articlesBody}
 
-        {isLoading ? 
-            <Loading />
+        {true ?
+            (
+              (!articles.length) ?
+                  <Loading />
+                :
+                  <Loading size="small" />
+            )
           : 
             null
         }
