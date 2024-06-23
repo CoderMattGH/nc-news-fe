@@ -4,7 +4,7 @@ function Loading({size = 'medium'}) {
   let sectionClassName = 'loading-section ';
   let classStr = 'loading-icon ';
   if (size === 'small') {
-    sectionClassName += 'loading-section--padding-normal';
+    sectionClassName += 'loading-section--padding-small';
     classStr += 'loading-icon--small';
   }
   else if (size === 'tiny') {
