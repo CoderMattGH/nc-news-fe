@@ -192,7 +192,7 @@ function Articles({upDownVoteArticle}) {
         <FilterBar />
         {articlesBody}
 
-        {true ?
+        {isLoading ?
             (
               (!articles.length) ?
                   <Loading />
