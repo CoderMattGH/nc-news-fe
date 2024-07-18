@@ -9,7 +9,7 @@ You can use the application by visiting: https://nc-news.codermatt.com/
 ## NC News API
 
 The **NC News** front-end application interacts with the back-end **NC News API**, which can be
-found at: https://github.com/CoderMattGH/be-nc-news.
+found at: https://github.com/CoderMattGH/nc-news-be.
 
 ## Running NC News Locally
 
